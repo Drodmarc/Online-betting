@@ -1,0 +1,14 @@
+development:
+  database: gem_project
+  username: root
+  password: qwer4321
+  adapter: mysql2
+  encoding: utf8mb4
+  host: db
+test:
+  database: gem_project_test
+  username: root
+  password: qwer4321
+  adapter: mysql2
+  encoding: utf8mb4
+  host: db
