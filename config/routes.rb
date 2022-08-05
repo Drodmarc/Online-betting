@@ -9,5 +9,9 @@ Rails.application.routes.draw do
   end
 
   constraints(AdminDomainConstraint.new) do
+    namespace :admin, path: '' do
+      devise_for :users, controllers: { sessions: 'admin/sessions' }
+      root to: 'dashboard#index'
+    end
   end
 end
