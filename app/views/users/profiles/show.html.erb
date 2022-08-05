@@ -1,0 +1,24 @@
+<div class="container py-5 h-100">
+  <div class="card w-100 mt-5">
+    <div class="card-body bg-secondary text-white p-4">
+      <div class="mb-md-3 mt-md-4 pb-1">
+        <h4 style="color:Orange;"><b><%= current_user.username %></b></h4>
+        <p>Email: <%= current_user.email %></p>
+        <p>Coins: <%= current_user.coins %></p>
+        <div class="mb-3">
+          <a href="#" class="btn btn-outline-light btn-lg form-control">Cash in Now</a>
+        </div>
+        <div class="row">
+          <div class="col">
+            <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-outline-light btn-lg px-5 form-control" %>
+          </div>
+          <div class="col">
+            <button type="submit" class="btn btn-outline-light btn-lg px-5 form-control">Address</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "users/shared/nav" %>

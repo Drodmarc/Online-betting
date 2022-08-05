@@ -1,0 +1,76 @@
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <h1><%= link_to "GEM", root_path, class: "navbar-brand", style:"color:Orange;"%></h1>
+    <ul class="nav offset-md-9">
+      <li class="nav-item">
+        <%= link_to "Login", new_user_session_path, class: "nav-link text-white" unless user_signed_in?%>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Sign Up", new_user_registration_path, class: "nav-link text-white" unless user_signed_in? %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">Language</a>
+      </li>
+    </ul>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <% unless user_signed_in? %>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Info</a>
+            </li>
+          <% else %>
+            <h4 style="color:Orange;"><b><%= current_user.username %></b></h4>
+            <p>Email: <%= current_user.email %></p>
+            <p>Coins: <%= current_user.coins %></p>
+        </ul>
+        <div>
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="btn btn-outline-light btn-lg px-5 form-control" href="#">Cash in Now</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">My Profile</a>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Sign out", destroy_user_session_path, class: "nav-link", :method => :delete%>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav class="navbar navbar-dark bg-dark fixed-bottom">
+  <ul class="nav offset-md-5" >
+    <li class="nav-item">
+      <a class="nav-link" style="color: darkorange" href="#">Share</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" style="color: darkorange" href="#">Invite</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" style="color: darkorange" href="#">Lottery</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"style="color: darkorange" href="#">Shop</a>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Me", users_profile_path, class: "nav-link text-white" if user_signed_in?%>
+    </li>
+  </ul>
+</nav>
