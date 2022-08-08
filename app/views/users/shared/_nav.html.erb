@@ -30,6 +30,7 @@
               <a class="nav-link" href="#">Info</a>
             </li>
           <% else %>
+            <%= image_tag current_user.image.url, class: "rounded-circle shadow-4", style: "width: 90px;"  if current_user.image? %>
             <h4 style="color:Orange;"><b><%= current_user.username %></b></h4>
             <p>Email: <%= current_user.email %></p>
             <p>Coins: <%= current_user.coins %></p>
