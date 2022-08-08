@@ -5,7 +5,6 @@
         <div class="card bg-secondary text-white">
           <div class="card-body p-5 text-center">
             <div class="mb-md-3 mt-md-4 pb-1">
-
               <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
                 <li class="nav-item" role="presentation">
                   <%= link_to "Login", new_session_path(resource_name), class: "nav-link  active text-dark", style: "background-color:darkorange" %>
@@ -14,7 +13,8 @@
                   <%= link_to "Register", new_user_registration_path, class: "nav-link text-white" %>
                 </li>
               </ul>
-              <br>
+              <p class="notice"><%= notice %></p>
+              <p class="alert"><%= alert %></p>
               <%= form_for(resource, as: resource_name, url: user_session_path) do |f| %>
                 <div class="form-outline form-white mb-2">
                   <%= f.email_field :email, class: "form-control form-control-lg mb-3",  autofocus: true, autocomplete: "email" %>
