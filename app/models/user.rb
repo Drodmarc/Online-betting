@@ -5,5 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :phone, phone: {allow_blank: true}
+
+  def admin?
+    role == 'admin'
+  end
+
+  def client?
+    role == 'client'
+  end
+
   mount_uploader :image, ImageUploader
 end
