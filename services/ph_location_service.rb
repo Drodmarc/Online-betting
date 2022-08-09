@@ -35,19 +35,16 @@ class PhLocationService
     cities.each do |city|
       if city['provinceCode']
         province = Province.find_by_code(city['provinceCode'])
-        City.find_or_create_by(code: city['code'], name: city['name'], province: province)
       elsif city['districtCode']
         province = Province.find_by_code(city['districtCode'])
-        City.find_or_create_by(code: city['code'], name: city['name'], province: province)
       else
         if city['name'] == "City of Isabela"
           province = Province.find_by_name('Basilan')
-          City.find_or_create_by(code: city['code'], name: city['name'], province: province)
         elsif city['name'] == "City of Cotabato"
           province = Province.find_by_name('Maguindanao')
-          City.find_or_create_by(code: city['code'], name: city['name'], province: province)
         end
       end
+      City.find_or_create_by(code: city['code'], name: city['name'], province: province)
     end
   end
 
@@ -57,11 +54,10 @@ class PhLocationService
     barangays.each do |barangay|
       if barangay['cityCode']
         city = City.find_by_code(barangay['cityCode'])
-        Barangay.find_or_create_by(code: barangay['code'], name: barangay['name'], city: city)
       else
         city = City.find_by_code(barangay['municipalityCode'])
-        Barangay.find_or_create_by(code: barangay['code'], name: barangay['name'], city: city)
       end
+      Barangay.find_or_create_by(code: barangay['code'], name: barangay['name'], city: city)
     end
   end
 end
