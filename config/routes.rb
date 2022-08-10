@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
     namespace :users do
       resource :profile
+      resources :addresses
     end
   end
 

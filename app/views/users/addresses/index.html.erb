@@ -1,0 +1,51 @@
+<div class="container py-5 h-100">
+  <div class="card bg-secondary w-100 mt-5">
+    <div class="mb-md-2 mt-md-4 pb-1">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <%= link_to "Back", users_profile_path, class: "btn btn-lg px-5 form-control", style: "background-color:orange" %>
+          </div>
+          <div class="col">
+            <%= link_to "New Address", new_users_address_path, class: "btn btn btn-lg px-5 form-control", style: "background-color:orange" %>
+          </div>
+        </div>
+        <% unless current_user.addresses.present? %>
+          <div class="card w-100">
+            <div class="card-body ">
+              <p class="card-text text-black text-center">No Address to show</p>
+            </div>
+          </div>
+        <% end %>
+        <% @addresses.each do |address| %>
+          <div class="card w-100 mt-3 ">
+            <div class="card-body bg-light">
+              <div class="row">
+                <p class="card-text text-danger"><%= address.genre %> <b><%= address.is_default ? 'Default' : '' %>
+                </p></b>
+                <p class="card-text"><b>Full name:</b> <%= address.name %></p>
+                <p class="card-text"><b>Phone Number:</b> <%= address.phone_number %></p>
+                <p class="card-text">
+                  <b>Address:</b> <%= "#{address.street_address}, #{address.barangay.name}, #{address.city.name}, #{address.province.name}, #{address.region.name}" %>
+                </p>
+              </div>
+              <div class="container mt-2">
+                <div class="row">
+                  <div class="col-1">
+                    <%= link_to "Edit", edit_users_address_path(address), class: "btn btn-success" %>
+                  </div>
+                  <div class="col-lg-8">
+                    <%= form_for address, url: users_address_path(address), method: :delete do |f| %>
+                      <%= f.submit 'Delete', class: "btn btn-danger" unless address.is_default %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render "users/shared/nav" %>

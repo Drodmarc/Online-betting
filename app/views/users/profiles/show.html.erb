@@ -6,6 +6,7 @@
           <p class="notice"><%= notice %></p>
           <p class="alert"><%= alert %></p>
           <div class="row">
+            <%= image_tag current_user.image.url, class: "rounded-3", style: "width: 150px;" if current_user.image?%>
             <div class="col-8">
               <h4 style="color:Orange;"><b><%= current_user.username %></b></h4>
               <p>Email: <%= current_user.email %></p>
@@ -21,7 +22,7 @@
             <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-outline-light btn-lg px-5 form-control" %>
           </div>
           <div class="col">
-            <button type="submit" class="btn btn-outline-light btn-lg px-5 form-control">Address</button>
+            <%= link_to "Address", users_addresses_path, class: "btn btn-outline-light btn-lg px-5 form-control" %>
           </div>
         </div>
       </div>

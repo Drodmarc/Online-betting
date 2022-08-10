@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :phone, phone: {allow_blank: true}
+  has_many :addresses
 
   def admin?
     role == 'admin'
