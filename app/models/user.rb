@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   validates :phone, phone: {allow_blank: true}
   has_many :addresses
-  belongs_to :parent,  class_name: "User", optional: true
+  belongs_to :parent,  class_name: "User",counter_cache: :children_members, optional: true
   has_many :children, class_name: "User" , foreign_key: :parent_id
 
   def admin?
