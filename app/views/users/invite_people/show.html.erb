@@ -1,7 +1,16 @@
 <%= render "users/shared/nav" %>
 <div class="bg-image d-flex justify-content-center align-items-center" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/015.webp');height: 100vh;">
-  <div class="container-fluid">
-    <div class="d-flex justify-content-center">
+  <div class="container">
+    <%  unless user_signed_in?%>
+      <div class="d-flex justify-content-center">
+        <div class="card">
+          <div class="card-body p-2 mt-2">
+            <p> You need to sign in first.</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="d-flex justify-content-center mt-5">
       <div class="card">
         <div class="card-body">
           <%== @svg %>
@@ -16,5 +25,4 @@
         </div>
       </div>
     </div>
-  </div>
 </div>

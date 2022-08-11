@@ -4,8 +4,9 @@ Rails.application.routes.draw do
     root to: 'home#index'
 
     namespace :users do
-      resource :profile
+      resource :profile, only: :show
       resources :addresses
+      get '/invite-people/', to: 'invite_people#show'
     end
   end
 

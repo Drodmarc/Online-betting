@@ -6,7 +6,11 @@ class Users::InvitePeopleController < ApplicationController
   def show; end
 
   def set_url
-    @url="#{request.base_url}/users/sign_up?promoter=#{current_user.email}"
+    if current_user
+      @url="#{request.base_url}/users/sign_up?promoter=#{current_user&.email}"
+    else
+      @url="#{request.base_url}/users/sign_up"
+      end
   end
 
   def render_qr_code

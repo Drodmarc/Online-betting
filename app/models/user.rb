@@ -6,8 +6,8 @@ class User < ApplicationRecord
 
   validates :phone, phone: {allow_blank: true}
   has_many :addresses
-  belongs_to :parent, class_name: "user", optional: true
-  has_many :children, class_name: "user" , foreign_key: :parent_id
+  belongs_to :parent,  class_name: "User", optional: true
+  has_many :children, class_name: "User" , foreign_key: :parent_id
 
   def admin?
     role == 'admin'
