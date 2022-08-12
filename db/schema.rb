@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_10_064358) do
+ActiveRecord::Schema.define(version: 2022_08_12_063239) do
 
   create_table "addresses", charset: "utf8mb4", force: :cascade do |t|
     t.integer "genre"
@@ -74,9 +74,9 @@ ActiveRecord::Schema.define(version: 2022_08_10_064358) do
     t.string "username", default: "", null: false
     t.string "role", default: "client"
     t.string "phone"
-    t.integer "coins"
-    t.decimal "total_deposit", precision: 10
-    t.integer "children_members"
+    t.integer "coins", default: 0
+    t.decimal "total_deposit", precision: 10, default: "0"
+    t.integer "children_members", default: 0
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 2022_08_10_064358) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "image"
     t.bigint "parent_id"
+    t.integer "total_used_coins", default: 0
+    t.decimal "member_total_deposits", precision: 10, default: "0"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
