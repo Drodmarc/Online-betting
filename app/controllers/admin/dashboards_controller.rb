@@ -4,8 +4,6 @@ class Admin::DashboardsController < AdminController
     @users = User.where(role: :client)
     unless params['search'].blank?
       @users = @users.where(email: params['search'])
-    else
-
     end
   end
 end

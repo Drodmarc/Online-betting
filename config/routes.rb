@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       root to: 'dashboards#home'
 
       resources :dashboards, path: '/user-list/', only: :index
+      resources :items, path: 'item-list', except: :show
     end
   end
 end
