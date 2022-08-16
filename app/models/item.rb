@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   validates_presence_of :offline_at
   validates_presence_of  :start_at
   validates_presence_of  :status
+  belongs_to :category
 
   mount_uploader :image, ImageUploader
 

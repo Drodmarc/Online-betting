@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_16_015136) do
+ActiveRecord::Schema.define(version: 2022_08_16_025300) do
 
   create_table "addresses", charset: "utf8mb4", force: :cascade do |t|
     t.integer "genre"
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 2022_08_16_015136) do
     t.index ["city_id"], name: "index_barangays_on_city_id"
   end
 
+  create_table "categories", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "cities", charset: "utf8mb4", force: :cascade do |t|
     t.string "code"
     t.string "name"
@@ -65,6 +72,8 @@ ActiveRecord::Schema.define(version: 2022_08_16_015136) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_items_on_category_id"
   end
 
   create_table "provinces", charset: "utf8mb4", force: :cascade do |t|

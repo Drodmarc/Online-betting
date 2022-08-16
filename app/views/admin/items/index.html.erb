@@ -18,6 +18,7 @@
     <thead>
     <tr>
       <th scope="col">Image</th>
+      <th scope="col">Category</th>
       <th scope="col">Name</th>
       <th scope="col">Quantity</th>
       <th scope="col">Minimum Bets</th>
@@ -33,12 +34,13 @@
     <tbody>
     <% unless @items.present? %>
       <tr class="table-success ">
-        <td colspan="11"><p> No record found.</p></td>
+        <td colspan="12"><p> No record found.</p></td>
       </tr>
     <% else %>
       <% @items&.each do |item| %>
         <tr class="table-success ">
           <td><%= image_tag item.image.url, style: "width: 100px;" %></td>
+          <td><%= item.category&.name %></td>
           <td><%= item.name %></td>
           <td><%= item.quantity %></td>
           <td><%= item.minimum_bets %></td>
