@@ -34,6 +34,7 @@ gem 'carrierwave', '~> 2.0'
 gem 'phonelib'
 gem'rest-client'
 gem 'rqrcode', '~> 2.0'
+gem 'aasm'
 
 
 group :development, :test do
