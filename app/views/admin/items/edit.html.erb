@@ -9,7 +9,7 @@
             <li><%= message %></li>
           <% end %>
         <% end %>
-        <%= form_for @item, url: admin_items_path, method: :post do |f| %>
+        <%= form_for @item, url: admin_item_path(@item), method: :patch do |f| %>
           <div class="row mt-4">
             <div class="col">
               <%= image_tag "#{request.base_url}#{current_user.image.url}", style: "width: 120px; margin-top" if current_user&.image? %>
