@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
     namespace :users do
       resource :profile, only: :show
-      resources :addresses
+      resources :addresses, :lotteries
       get '/invite-people/', to: 'invite_people#show'
     end
   end
