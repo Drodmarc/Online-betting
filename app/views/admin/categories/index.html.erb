@@ -1,48 +1,45 @@
 <%= render "layouts/adnav" %>
 <div class="main mt-4">
   <div class="row">
-    <div class="col">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
       <h1><b>Categories</b></h1>
     </div>
-    <div class="col">
-      <%= form_tag({ url: admin_items_path }, { method: :get }) do %>
-        <div class="d-flex justify-content-end">
-          <%= text_field_tag :search %>
-          <%= submit_tag :search, class: "btn btn-success" %> &nbsp;
-          <%= link_to "Create New", new_admin_category_path, class: "btn btn-warning btn-lg px-5 form-control" %>
+    <div class="col-lg-9 col-md-9 col-sm-12 col-12 d-flex justify-content-end">
+      <%= form_tag({ url: admin_items_path }, { method: :get }) do%>
+        <div class="d-flex w-100 justify-content-end">
+          <div class="input-group w-100">
+          <%= text_field_tag :category%>
+          </div>
+          <%= submit_tag :Search, class: "btn btn-success" %> &nbsp;
+          <%= link_to "New", new_admin_category_path, class: "btn btn-warning btn-lg form-control", style:"font-size:1rem;" %>
         </div>
       <% end %>
     </div>
   </div>
-  <%if alert || notice %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-    <% end %>
+  <%= render "shared/flash_error" %>
   <table class="table table-bordered table-dark table-hover text-center" style="font-size: 15px">
     <thead>
     <tr>
-      <th scope="col">Category Name</th>
-      <th scope="col">Actions</th>
+      <th scope="col" class="w-75">Category Name</th>
+      <th scope="col ">Actions</th>
     </tr>
     </thead>
     <tbody>
-    <% unless @categories.present? %>
+    <% if @categories.blank? %>
       <tr class="table-success ">
         <td colspan="2"><p> No record found.</p></td>
       </tr>
     <% else %>
-      <% @categories&.each do |category| %>
+      <% @categories.each do |category| %>
         <tr class="table-success ">
-          <td><%= category.name %></td>
+          <td  style="vertical-align: middle"><%= category.name %></td>
           <td>
             <div class="row">
               <div class="col">
-                <%= link_to "Edit", edit_admin_category_path(category), class: "btn btn-primary btn-lg px-0 form-control mt-1" %>
+                <%= link_to "Edit", edit_admin_category_path(category), class: "btn btn-primary btn-lg  form-control mt-1", style:"font-size:1rem;" %>
               </div>
               <div class="col">
-                <%= form_for category, url: admin_category_path(category), method: :delete do |f| %>
-                  <%= f.submit 'Delete',art: { error: "You can't delete this category" }, class: "btn btn-danger btn-lg px-0 form-control mt-1" %>
-                <% end %>
+                <%= link_to 'Delete', admin_category_path(category), method: :delete, class: "btn btn-danger btn-lg  form-control mt-1", style:"font-size:1rem;" %>
               </div>
             </div>
           </td>

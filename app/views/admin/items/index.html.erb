@@ -7,13 +7,14 @@
     <div class="col">
       <%= form_tag({ url: admin_items_path }, { method: :get }) do %>
         <div class="d-flex justify-content-end">
-          <%= text_field_tag :search %>
-          <%= submit_tag :search, class: "btn btn-success" %> &nbsp;
-          <%= link_to "Create New", new_admin_item_path, class: "btn btn-warning btn-lg px-5 form-control" %>
+          <%= text_field_tag :item %>
+          <%= submit_tag :Search, class: "btn btn-success" %> &nbsp;
+          <%= link_to "New", new_admin_item_path, class: "btn btn-warning btn-lg   d-flex justify-content-end", style: "font-size:1rem;" %>
         </div>
       <% end %>
     </div>
   </div>
+  <%= render "shared/flash_error" %>
   <table class="table table-bordered table-dark table-hover text-center" style="font-size: 15px">
     <thead>
     <tr>
@@ -32,15 +33,15 @@
     </tr>
     </thead>
     <tbody>
-    <% unless @items.present? %>
+    <% if @items.blank? %>
       <tr class="table-success ">
         <td colspan="12"><p> No record found.</p></td>
       </tr>
     <% else %>
-      <% @items&.each do |item| %>
+      <% @items.each do |item| %>
         <tr class="table-success ">
           <td><%= image_tag item.image.url, style: "width: 100px;" %></td>
-          <td><%= item.category&.name %></td>
+          <td><%= item.category.name %></td>
           <td><%= item.name %></td>
           <td><%= item.quantity %></td>
           <td><%= item.minimum_bets %></td>
@@ -51,10 +52,8 @@
           <td><%= item.start_at %></td>
           <td><%= item.status %></td>
           <td>
-            <%= link_to "Edit", edit_admin_item_path(item), class: "btn btn-primary btn-lg px-5 form-control" %>
-            <%= form_for item, url: admin_item_path(item), method: :delete do |f| %>
-              <%= f.submit 'Delete', class: "btn btn-danger btn-lg px-5 form-control mt-2" %>
-            <% end %>
+            <%= link_to "Edit", edit_admin_item_path(item), class: "btn btn-primary btn-lg form-control", style: "font-size:1rem;" %>
+            <%= link_to 'Delete', admin_item_path(item), method: :delete, class: "btn btn-danger btn-lg  form-control mt-2", style: "font-size:1rem;" %>
           </td>
         </tr>
       <% end %>

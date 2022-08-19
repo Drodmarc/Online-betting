@@ -1,6 +1,5 @@
 class City < ApplicationRecord
-  validates_presence_of :code
-  validates_presence_of :name
+  validates :code, :name, presence: true
 
   belongs_to :province
   has_many :barangays

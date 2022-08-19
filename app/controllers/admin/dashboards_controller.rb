@@ -2,8 +2,8 @@ class Admin::DashboardsController < AdminController
 
   def index
     @users = User.where(role: :client)
-    unless params['search'].blank?
-      @users = @users.where(email: params['search'])
+    if params['user'].present?
+      @users = @users.where(email: params['user'])
     end
   end
 end

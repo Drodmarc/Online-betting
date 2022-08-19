@@ -1,17 +1,12 @@
 class Item < ApplicationRecord
-  validates_presence_of  :image
-  validates_presence_of :name
-  validates_presence_of  :quantity
-  validates_presence_of  :minimum_bets
-  validates_presence_of  :online_at
-  validates_presence_of :offline_at
-  validates_presence_of  :start_at
-  validates_presence_of  :status
+  validates :image, :name, :online_at, :offline_at, :start_at, :status, presence: true
+  validates :quantity, numericality: { greater_than: 0 }
+  validates :minimum_bets, numericality: { greater_than: 0 }
   belongs_to :category
 
   mount_uploader :image, ImageUploader
 
-  enum status: [:Active, :Inactive]
+  enum status: [:active, :inactive]
 
   default_scope { where(deleted_at: nil) }
 
@@ -25,7 +20,7 @@ class Item < ApplicationRecord
     state :starting, :paused, :ended, :cancelled
 
     event :start do
-      transitions from: [:pending, :ended, :cancelled], to: :starting, after: :start, guards: [:start, :greaterthan_zero?, :future?, :active?]
+      transitions from: [:pending, :ended, :cancelled], to: :starting, after: :set_count, guards: [:greater_than_zero?, :offline_future?, :active?]
       transitions from: :paused, to: :starting
     end
 
@@ -42,19 +37,15 @@ class Item < ApplicationRecord
     end
   end
 
-  def start
-    self.update(quantity: self.quantity - 1, batch_count: self.batch_count + 1)
+  def set_count
+    update_columns(quantity: quantity - 1, batch_count: batch_count + 1)
   end
 
-  def greaterthan_zero?
-    self.quantity > 0
+  def greater_than_zero?
+    quantity > 0
   end
 
-  def future?
+  def offline_future?
     Time.now < offline_at
-  end
-
-  def active?
-    status == 'Active'
   end
 end

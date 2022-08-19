@@ -1,9 +1,9 @@
-class Admin::ItemsController < ApplicationController
+class Admin::ItemsController < AdminController
   before_action :set_item, only: [:edit, :update, :destroy]
   def index
-    @items = Item.all
-    unless params['search'].blank?
-      @items = @items.where(name: params['search'])
+    @items = Item.includes(:category)
+    if params['item'].present?
+      @items = @items.where(name: params['item'])
     end
   end
 
@@ -14,6 +14,7 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
+      flash[:notice] = "Successfully Created"
       redirect_to admin_items_path
     else
       render :new
@@ -24,6 +25,7 @@ class Admin::ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
+      flash[:notice] = "Successfully Updated"
       redirect_to admin_items_path
     else
       render :edit
@@ -32,6 +34,7 @@ class Admin::ItemsController < ApplicationController
 
   def destroy
     if @item.destroy
+      flash[:notice] = "Successfully deleted"
       redirect_to admin_items_path
     end
   end

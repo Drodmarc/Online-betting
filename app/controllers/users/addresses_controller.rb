@@ -2,7 +2,7 @@ class Users::AddressesController < ApplicationController
   before_action :set_address, only: [:edit, :update, :destroy]
 
   def index
-    @addresses = current_user.addresses.includes(:user, :region, :province, :city, :barangay)
+    @addresses = current_user.addresses.includes(:region, :province, :city, :barangay)
   end
 
   def new
@@ -14,6 +14,7 @@ class Users::AddressesController < ApplicationController
     @address.user = current_user
 
     if @address.save
+      flash[:notice] = "Successfully Created"
       redirect_to users_addresses_path
     else
       render :new
@@ -24,6 +25,7 @@ class Users::AddressesController < ApplicationController
 
   def update
     if @address.update(address_params)
+      flash[:notice] = "Successfully Updated"
       redirect_to users_addresses_path
     else
       render :edit
@@ -32,14 +34,15 @@ class Users::AddressesController < ApplicationController
 
   def destroy
     if @address.destroy
-    redirect_to users_addresses_path
+      flash[:notice] = "Successfully deleted"
+      redirect_to users_addresses_path
     end
-    end
+  end
 
   private
 
   def set_address
-    @address = Address .find(params[:id])
+    @address = Address.find(params[:id])
   end
 
   def address_params

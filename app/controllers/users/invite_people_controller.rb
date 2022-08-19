@@ -1,9 +1,10 @@
 class Users::InvitePeopleController < ApplicationController
-  require "rqrcode"
   before_action :set_url
   before_action :render_qr_code
 
   def show; end
+
+  private
 
   def set_url
     if current_user

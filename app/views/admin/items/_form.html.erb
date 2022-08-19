@@ -1,0 +1,82 @@
+<% if @item.image? %>
+  <div class="row mt-4">
+    <div class="col-12 col-lg-2 col-md-2">
+      <%= image_tag @item.image.url, class: "img-thumbnail" %>
+    </div>
+    <div class="col-12 col-lg-5 col-md-5">
+      <div class="form-outline mb-4">
+        <%= f.file_field :image, class: "form-control mt-3 mb-3" %>
+        <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select mb-3" } %>
+        <%= f.select(:status, Item.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: "form-control form-select mb-3") %>
+      </div>
+    </div>
+    <div class="col-12 col-lg-5 col-md-5">
+      <div class="form-outline mb-4 text-center">
+        <%= f.text_field :name, class: "form-control mt-3 mb-3", placeholder: "Name" %>
+        <%= f.text_field :quantity, class: "form-control mb-3", placeholder: "Quantity" %>
+        <%= f.text_field :minimum_bets, class: "form-control mb-3", placeholder: "Minimum Bets" %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="row mt-4">
+    <div class="col">
+      <div class="form-outline mb-4">
+        <%= f.file_field :image, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline mb-4">
+        <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <div class="form-outline mb-5">
+        <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select" } %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline mb-4">
+        <%= f.text_field :quantity, class: "form-control", placeholder: "Quantity" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-outline mb-4">
+        <%= f.select(:status, Item.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: 'form-control form-select') %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline mb-2">
+        <%= f.text_field :minimum_bets, class: "form-control", placeholder: "Minimum Bets" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="row mt-4">
+  <div class="col">
+    <div class="form-outline mb-2">
+      <%= f.datetime_field :online_at, class: "form-control" %>
+      <%= f.label :online_at, class: "text-light mt-2" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="form-outline mb-2">
+      <%= f.datetime_field :offline_at, class: "form-control" %>
+      <%= f.label :offline_at, class: "text-light mt-2" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="form-outline mb-2">
+      <%= f.date_field :start_at, class: "form-control" %>
+      <%= f.label :start_at, class: "text-light mt-2" %>
+    </div>
+  </div>
+</div>

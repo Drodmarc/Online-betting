@@ -5,8 +5,9 @@ Rails.application.routes.draw do
 
     namespace :users do
       resource :profile, only: :show
-      resources :addresses, :lotteries
-      get '/invite-people/', to: 'invite_people#show'
+      resource :invite_people, path: 'invite-people', only: :show
+      resources :addresses
+      resources :lotteries
     end
   end
 
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
       devise_for :users, controllers: { sessions: 'admin/sessions' }
       root to: 'dashboards#home'
 
-      resources :dashboards, path: '/user-list/', only: :index
+      resources :dashboards, path: 'user-list', only: :index
       resources :items, path: 'item-list', except: :show
       resources :categories, path: 'category', except: :show
     end

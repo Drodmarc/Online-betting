@@ -1,76 +1,12 @@
 <%= render "layouts/adnav" %>
 <div class="main mt-4">
   <h1><b>Edit Item</b></h1>
+  <%= render "shared/error", resource: @item %>
   <div class="card w-100 mt-1 ">
     <div class="card-body bg-secondary">
       <div class="container">
-        <% if @item.errors.any? %>
-          <% @item.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        <% end %>
         <%= form_for @item, url: admin_item_path(@item), method: :patch do |f| %>
-          <div class="row mt-4">
-            <div class="col">
-              <%= image_tag "#{request.base_url}#{current_user.image.url}", style: "width: 120px; margin-top" if current_user&.image? %>
-              <div class="form-outline mb-4">
-                <%= f.file_field :image, class: "form-control" %>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline mb-4 text-center">
-                <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select" } %>
-              </div>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col">
-              <div class="form-outline mb-4">
-                <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline mb-4">
-                <%= f.text_field :quantity, class: "form-control", placeholder: "Quantity" %>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-outline mb-4">
-                <%= f.text_field :minimum_bets, class: "form-control", placeholder: "Minimum Bets" %>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline mb-2">
-                <%= f.select(:status, Item.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: 'form-control form-select') %>
-              </div>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col">
-              <div class="form-outline mb-4">
-                <%= f.datetime_field :online_at, class: "form-control" %>
-                <%= f.label :online_at, class: "text-light mt-2" %>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-outline mb-4">
-                <%= f.datetime_field :offline_at, class: "form-control" %>
-                <%= f.label :offline_at, class: "text-light mt-2" %>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-outline mb-4">
-                <%= f.date_field :start_at, class: "form-control" %>
-                <%= f.label :start_at, class: "text-light mt-2" %>
-              </div>
-            </div>
-          </div>
+          <%= render "form", f: f %>
           <div class="pt-1 text-center">
             <%= link_to 'Back', admin_items_path, class: "btn btn-warning btn-lg px-5" %>
             <%= f.submit "Update", class: "btn btn-warning btn-lg px-5" %>

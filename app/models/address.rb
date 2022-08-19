@@ -1,7 +1,6 @@
 class Address < ApplicationRecord
-  validates_presence_of :name
-  validates_presence_of :street_address
-  validates_presence_of :genre
+  LIMIT = 2
+  validates :name, :street_address, :genre, presence: true
   validates_presence_of :is_default, { allow_blank: true }
   validates :phone_number, phone: true
   before_create :first_address_auto_default
@@ -9,7 +8,7 @@ class Address < ApplicationRecord
   before_commit :update_default
   validate :limit_to_five_address, on: :create
 
-  enum genre: [:Home, :Office]
+  enum genre: [:home, :office]
 
   belongs_to :user
   belongs_to :region
@@ -18,7 +17,7 @@ class Address < ApplicationRecord
   belongs_to :barangay
 
   def first_address_auto_default
-    unless self.user.addresses.present?
+    unless user.addresses.present?
       self.is_default = true
     end
   end
@@ -31,14 +30,13 @@ class Address < ApplicationRecord
 
   def update_default
     if is_default
-      self.user.addresses.where("id != ?", self.id).update_all(is_default: false)
+      user.addresses.where.not(id: id).update_all(is_default: false)
     end
   end
 
   def limit_to_five_address
-    return unless self.user
-    if self.user.addresses.count >= 4
-      errors.add(:base, "Mali!!")
+    if user.addresses.count >= LIMIT
+      errors.add(:base, "You reach the limit")
     end
   end
 end

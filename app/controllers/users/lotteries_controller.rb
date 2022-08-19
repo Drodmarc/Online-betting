@@ -1,8 +1,7 @@
 class Users::LotteriesController < ApplicationController
   def index
-    @category = Category.find_by_name(params[:category])
-    @items = Item.where(status: 'Active').where(state:'starting')
-    @items = @items.where(category_id: @category.id) if params[:category]
+    @items = Item.active.starting
+    @items = @items.includes(:category).where(category: {name: params[:category]}) if params[:category].present?
     @categories = Category.all
   end
 end

@@ -1,3 +1,4 @@
+<%= render "users/shared/nav" %>
 <section class="vh-100 gradient-custom">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -18,7 +19,7 @@
 
                 <% if cookies[:promoter] %>
                   <div class="form-outline mb-4">
-                    <%= f.email_field :psuedo, class: "form-control form-control-lg mb-3", autofocus: true, autocomplete: "email", value: cookies[:promoter], readonly: true %>
+                    <%= f.email_field :parent, class: "form-control form-control-lg mb-3", autofocus: true, autocomplete: "email", value: cookies[:promoter], readonly: true %>
                     <%= f.label :promoter %>
                   </div>
                 <% end %>
@@ -52,4 +53,3 @@
     </div>
   </div>
 </section>
-<%= render "users/shared/nav" %>
