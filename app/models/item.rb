@@ -48,11 +48,7 @@ class Item < ApplicationRecord
   end
 
   def cancel_bet
-    bets.where(batch_count: batch_count).each do |bet|
-      p "---------=-------===-----------=-------------"
-      p bet
-      bet.cancel!
-    end
+    bets.where(batch_count: batch_count).each  { |bet| bet.cancel! }
   end
 
   def set_count

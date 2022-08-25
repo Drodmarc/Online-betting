@@ -1,4 +1,5 @@
 class Users::LotteriesController < ApplicationController
+  before_action :authenticate_admin_user!, only: :create
   before_action :set_item, only: [:create]
   def index
     @items = Item.active.starting
