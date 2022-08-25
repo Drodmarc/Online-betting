@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   validates :quantity, numericality: { greater_than: 0 }
   validates :minimum_bets, numericality: { greater_than: 0 }
   belongs_to :category
+  has_many :bets
 
   mount_uploader :image, ImageUploader
 
@@ -11,7 +12,12 @@ class Item < ApplicationRecord
   default_scope { where(deleted_at: nil) }
 
   def destroy
-    update(deleted_at: Time.current)
+    if self.bets.blank?
+      update(deleted_at: Time.current)
+    else
+      errors.add(:base, "Can't delete this item")
+      return false
+    end
   end
 
   include AASM
@@ -32,8 +38,20 @@ class Item < ApplicationRecord
       transitions from: :starting, to: :ended
     end
 
-    event :cancel do
+    event :cancel, after: [:increment_quantity, :cancel_bet] do
       transitions from: [:starting, :paused], to: :cancelled
+    end
+  end
+
+  def return_item
+    update(quantity: quantity + 1)
+  end
+
+  def cancel_bet
+    bets.where(batch_count: batch_count).each do |bet|
+      p "---------=-------===-----------=-------------"
+      p bet
+      bet.cancel!
     end
   end
 
@@ -47,5 +65,9 @@ class Item < ApplicationRecord
 
   def offline_future?
     Time.now < offline_at
+  end
+
+  def increment_quantity
+    update(quantity: quantity + 1)
   end
 end

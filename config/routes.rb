@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :dashboards, path: 'user-list', only: :index
       resources :items, path: 'item-list', except: :show
       resources :categories, path: 'category', except: :show
+      resources :bets, path: 'bet-list', only: :index
     end
   end
 end

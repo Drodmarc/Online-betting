@@ -1,0 +1,76 @@
+<%= render "layouts/adnav" %>
+<div class="main mt-4">
+  <%= render "shared/flash_error" %>
+  <div class="card shadow rounded">
+    <%= form_tag({ url: admin_bets_path }, { method: :get }) do %>
+      <div class="card-header shadow-sm rounded">
+        <div class="row">
+          <div class="col-8 ">
+            <h1 class="mt-1"><b>Bet List</b></h1>
+          </div>
+          <div class="col-2 ">
+            <%= link_to "Restart", admin_bets_path, class: "btn btn-danger col-12 mt-2 shadow-sm rounded" %>
+          </div>
+          <div class="col-2 ">
+            <%= submit_tag :Search, class: "btn btn-success col-12 mt-2 shadow-sm rounded" %>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-3 ">
+            <%= text_field_tag :serial_number, '', value: params[:serial_number], placeholder: "Serial Number", class: "form-control shadow-sm rounded" %>
+          </div>
+          <div class="col-3">
+            <%= text_field_tag :product_name, '', value: params[:product_name], placeholder: "Product Name", class: "form-control shadow-sm rounded" %>
+          </div>
+          <div class="col-3">
+            <%= text_field_tag :email, '', value: params[:email], placeholder: "Email", class: "form-control shadow-sm rounded" %>
+          </div>
+          <div class="col-3">
+            <%= select_tag :state, options_for_select(Bet.aasm.states.map(&:name)), { prompt: 'State', class: "form-control form-select shadow-sm rounded" } %>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <div class="input-group">
+              <span class="input-group-text shadow-sm rounded">Start Date</span>
+              <%= datetime_field_tag :start, '', value: params[:start], class: "form-control shadow-sm rounded" %>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group">
+              <span class="input-group-text shadow-sm rounded">End Date</span>
+              <%= datetime_field_tag :end, '', value: params[:end], class: "form-control shadow-sm rounded" %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    </div>
+  </div>
+  <table class="table table-bordered table-dark table-hover text-center mt-2 shadow-sm rounded" style="font-size: 15px">
+    <thead>
+    <tr>
+      <th scope="col">Product Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">State</th>
+      <th scope="col">Serial Number</th>
+      <th scope="col">Created At</th>
+    </tr>
+    </thead>
+    <% if @bets.blank? %>
+      <tr class="table-success">
+        <td colspan="5"><p> No record found.</p></td>
+      </tr>
+    <% end %>
+    <% @bets.each do |bet| %>
+      <tr class="table-success">
+        <td><%= bet.item.name %></td>
+        <td><%= bet.user.email %></td>
+        <td><%= bet.state %></td>
+        <td><%= bet.serial_number %></td>
+        <td><%= bet.created_at %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

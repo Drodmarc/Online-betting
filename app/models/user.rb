@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :addresses
   belongs_to :parent,  class_name: "User",counter_cache: :children_members, optional: true
   has_many :children, class_name: "User" , foreign_key: :parent_id
+  has_many :bets
 
   def admin?
     role == 'admin'

@@ -1,0 +1,95 @@
+<%= render "users/shared/nav" %>
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+<div class="container" style="margin-top: 150px">
+  <%= render "shared/flash_error" %>
+  <div class="d-flex justify-content-center">
+    <div class="card shadow  mb-3 bg-body rounded border-light">
+      <div class="card-body">
+        <div class="row mt-3">
+          <div class="col">
+            <div class="form-outline mb-4 justify-content-center d-flex overflow-hidden" style="width: 100%; aspect-ratio: 1 / 1;">
+              <%= image_tag @item.image.url, style:"object-fit: cover" if @item.image? %>
+            </div>
+            <h6 class="text-start"><%= @item.name %></h6>
+            <div class="progress">
+              <div class="progress-bar bg-warning text-black shadow-sm rounded" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+            </div>
+          </div>
+          <%= form_for @bet, url: users_lotteries_path, method: :post do |f| %>
+            <div class="form-group mt-3">
+              <%= f.hidden_field :item_id, value: @item.id %>
+              <div class="input-group mb-3 shadow-sm rounded">
+                <button class="btn btn-warning" id="minus">−</button>
+                <%= f.number_field :coins, min: 1, value: 1, class: 'form-control text-center' %>
+                <button class="btn btn-warning" id="plus">+</button>
+              </div>
+            </div>
+            <div class="pt-1 text-center">
+              <% if current_user %>
+                <%= f.submit "Bet", class: "btn btn-warning  col-12" %>
+              <% else %>
+                <%= link_to "Bet", new_user_session_path, class: "btn btn-warning col-12 " %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card shadow bg-body rounded border-light mx-auto d-block" style="width: 90vw; max-width:500px; margin-bottom:90px">
+  <div class="card-body">
+    <div class="row mt-2">
+      <div class="col-12">
+        <table class="table table-bordered table-dark table-hover text-center" style="font-size: 15px">
+          <thead>
+          <tr>
+            <th scope="col">Serial Number</th>
+          </tr>
+          <tr class="table-warning ">
+            <% if @user_bets.blank? %>
+              <td style="vertical-align: middle">No record</td>
+            <% end %>
+          </tr>
+          <% @user_bets.each do |bet| %>
+            <tr class="table-warning ">
+              <td style="vertical-align: middle"><%= bet.serial_number %></td>
+            </tr>
+          <% end %>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<sript>
+  <script>
+      const minusButton = document.getElementById('minus');
+      const plusButton = document.getElementById('plus');
+      const inputField = document.getElementById('bet_coins');
+
+      minusButton.addEventListener('click', event => {
+          event.preventDefault();
+          const currentValue = Number(inputField.value) || 0;
+          if (currentValue > 1) {
+              inputField.value = currentValue - 1;
+          }
+      });
+
+      plusButton.addEventListener('click', event => {
+          event.preventDefault();
+          const currentValue = Number(inputField.value) || 0;
+          inputField.value = currentValue + 1;
+      });
+  </script>
+</sript>
