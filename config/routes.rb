@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       resources :items, path: 'item-list', except: :show
       resources :categories, path: 'category', except: :show
       resources :bets, path: 'bet-list', only: :index
+      resources :winners, path: 'winner-list', only: :index do
+        put :submit, :pay, :ship, :deliver, :publish, :remove_publish
+      end
     end
   end
 end
