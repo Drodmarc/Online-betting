@@ -15,7 +15,7 @@
   </div>
   <table class="table table-bordered table-dark table-hover text-center" style="font-size: 15px">
     <thead>
-    <tr>
+    <tr style="vertical-align: middle">
       <th scope="col">Email</th>
       <th scope="col">Parent Email</th>
       <th scope="col">Children Members</th>
@@ -28,12 +28,12 @@
     </thead>
     <tbody>
     <% if @users.blank? %>
-      <tr class="table-success ">
+      <tr class="table-success" style="vertical-align: middle">
         <td colspan="8"><p> No record found.</p></td>
       </tr>
     <% else %>
       <% @users.each do |user| %>
-        <tr class="table-success ">
+        <tr class="table-success" style="vertical-align: middle">
           <td><%= user.email %></td>
           <td><%= user.parent&.email %></td>
           <td><%= user.children_members %></td>

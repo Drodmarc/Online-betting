@@ -1,16 +1,20 @@
 class Users::LotteriesController < ApplicationController
-  before_action :authenticate_admin_user!, only: :create
+  before_action :authenticate_user!, only: :create
   before_action :set_item, only: [:create]
+
   def index
-    @items = Item.active.starting
+    @items = Item.active.starting.where('quantity > ?', 0)
     @items = @items.includes(:category).where(category: { name: params[:category] }) if params[:category].present?
     @categories = Category.all
   end
 
   def show
-    @item = Item.find(params[:id])
-    @user_bets = @item.bets.where(user: current_user).where(batch_count: @item.batch_count)
-    @bet = Bet.new
+    if @item = Item.active.starting.where('quantity > ?', 0).find_by_id(params[:id])
+      @user_bets = @item.bets.where(user: current_user).where(batch_count: @item.batch_count)
+      @bet = Bet.new
+    else
+      render_404
+    end
   end
 
   def create

@@ -17,7 +17,7 @@
   <%= render "shared/flash_error" %>
   <table class="table table-bordered table-dark table-hover text-center" style="font-size: 15px">
     <thead>
-    <tr>
+    <tr style="vertical-align: middle">
       <th scope="col">Image</th>
       <th scope="col">Category</th>
       <th scope="col">Name</th>
@@ -29,17 +29,18 @@
       <th scope="col">Offline at</th>
       <th scope="col">Start at</th>
       <th scope="col">Status</th>
-      <th scope="col">Actions</th>
+      <th scope="col">State Actions</th>
+      <th scope="col">Modify Items</th>
     </tr>
     </thead>
     <tbody>
     <% if @items.blank? %>
-      <tr class="table-success ">
+      <tr class="table-success" style="vertical-align: middle">
         <td colspan="12"><p> No record found.</p></td>
       </tr>
     <% else %>
       <% @items.each do |item| %>
-        <tr class="table-success ">
+        <tr class="table-success" style="vertical-align: middle">
           <td><%= image_tag item.image.url, style: "width: 100px;" %></td>
           <td><%= item.category.name %></td>
           <td><%= item.name %></td>
@@ -52,8 +53,14 @@
           <td><%= item.start_at %></td>
           <td><%= item.status %></td>
           <td>
-            <%= link_to "Edit", edit_admin_item_path(item), class: "btn btn-primary btn-lg form-control", style: "font-size:1rem;" %>
-            <%= link_to 'Delete', admin_item_path(item), method: :delete, class: "btn btn-danger btn-lg  form-control mt-2", style: "font-size:1rem;" %>
+            <%= link_to "Start", admin_item_start_path(item), class: "btn btn-success col-12 shadow-sm rounded", method: :put if item.may_start? %>
+            <%= link_to "Pause", admin_item_pause_path(item), class: "btn btn-success col-12 shadow-sm rounded", method: :put if item.may_pause? %>
+            <%= link_to "End", admin_item_end_path(item), class: "btn btn-success col-12 shadow-sm rounded mt-2", method: :put if item.may_end? %>
+            <%= link_to "Cancel", admin_item_cancel_path(item), class: "btn btn-danger col-12 shadow-sm rounded mt-2",data: { confirm:'Are you sure you want to cancel?' }, method: :put if item.may_cancel? %>
+          </td>
+          <td>
+            <%= link_to "Edit", edit_admin_item_path(item), class: "btn btn-warning col-12 shadow-sm rounded" %>
+            <%= link_to 'Delete', admin_item_path(item), method: :delete, data: { confirm:'Are you sure you want to delete?' }, class: "btn btn-danger col-12 shadow-sm rounded mt-2" %>
           </td>
         </tr>
       <% end %>

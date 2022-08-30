@@ -21,24 +21,24 @@
 <% else %>
   <div class="row mt-4">
     <div class="col">
-      <div class="form-outline mb-4">
+      <div class="form-outline">
         <%= f.file_field :image, class: "form-control" %>
       </div>
     </div>
     <div class="col">
-      <div class="form-outline mb-4">
+      <div class="form-outline">
         <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
       </div>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col">
-      <div class="form-outline mb-5">
+      <div class="form-outline">
         <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select" } %>
       </div>
     </div>
     <div class="col">
-      <div class="form-outline mb-4">
+      <div class="form-outline mb-3">
         <%= f.text_field :quantity, class: "form-control", placeholder: "Quantity" %>
       </div>
     </div>
@@ -56,27 +56,27 @@
     </div>
   </div>
 <% end %>
-<div class="row mt-4">
+<div class="row mt-2">
   <div class="col">
-    <div class="form-outline mb-2">
+    <div class="input-group">
+      <span class="input-group-text shadow-sm">Online at</span>
       <%= f.datetime_field :online_at, class: "form-control" %>
-      <%= f.label :online_at, class: "text-light mt-2" %>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <div class="form-outline mb-2">
+    <div class="input-group mt-3">
+      <span class="input-group-text shadow-sm">Offline at</span>
       <%= f.datetime_field :offline_at, class: "form-control" %>
-      <%= f.label :offline_at, class: "text-light mt-2" %>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <div class="form-outline mb-2">
+    <div class="input-group mt-3 mb-3">
+      <span class="input-group-text shadow-sm">Start at</span>
       <%= f.date_field :start_at, class: "form-control" %>
-      <%= f.label :start_at, class: "text-light mt-2" %>
     </div>
   </div>
 </div>

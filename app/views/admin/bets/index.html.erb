@@ -9,7 +9,7 @@
             <h1 class="mt-1"><b>Bet List</b></h1>
           </div>
           <div class="col-2 ">
-            <%= link_to "Restart", admin_bets_path, class: "btn btn-danger col-12 mt-2 shadow-sm rounded" %>
+            <%= link_to "Reset", admin_bets_path, class: "btn btn-warning col-12 mt-2 shadow-sm rounded" %>
           </div>
           <div class="col-2 ">
             <%= submit_tag :Search, class: "btn btn-success col-12 mt-2 shadow-sm rounded" %>
@@ -19,29 +19,29 @@
       <div class="card-body">
         <div class="row">
           <div class="col-3 ">
-            <%= text_field_tag :serial_number, '', value: params[:serial_number], placeholder: "Serial Number", class: "form-control shadow-sm rounded" %>
+            <%= text_field_tag :serial_number, params[:serial_number], placeholder: "Serial Number", class: "form-control shadow-sm rounded" %>
           </div>
           <div class="col-3">
-            <%= text_field_tag :product_name, '', value: params[:product_name], placeholder: "Product Name", class: "form-control shadow-sm rounded" %>
+            <%= text_field_tag :product_name, params[:product_name], placeholder: "Product Name", class: "form-control shadow-sm rounded" %>
           </div>
           <div class="col-3">
-            <%= text_field_tag :email, '', value: params[:email], placeholder: "Email", class: "form-control shadow-sm rounded" %>
+            <%= text_field_tag :email, params[:email], placeholder: "Email", class: "form-control shadow-sm rounded" %>
           </div>
           <div class="col-3">
-            <%= select_tag :state, options_for_select(Bet.aasm.states.map(&:name)), { prompt: 'State', class: "form-control form-select shadow-sm rounded" } %>
+            <%= select_tag :state, options_for_select(Bet.aasm.states.map(&:name), params[:state]), { prompt: 'State', class: "form-control form-select shadow-sm rounded" } %>
           </div>
         </div>
         <div class="row mt-3">
           <div class="col-6">
             <div class="input-group">
-              <span class="input-group-text shadow-sm rounded">Start Date</span>
-              <%= datetime_field_tag :start, '', value: params[:start], class: "form-control shadow-sm rounded" %>
+              <span class="input-group-text shadow-sm">Start Date</span>
+              <%= datetime_field_tag :start, params[:start], class: "form-control shadow-sm" %>
             </div>
           </div>
           <div class="col-6">
             <div class="input-group">
-              <span class="input-group-text shadow-sm rounded">End Date</span>
-              <%= datetime_field_tag :end, '', value: params[:end], class: "form-control shadow-sm rounded" %>
+              <span class="input-group-text shadow-sm">End Date</span>
+              <%= datetime_field_tag :end, params[:end], class: "form-control shadow-sm" %>
             </div>
           </div>
         </div>
@@ -50,26 +50,34 @@
   </div>
   <table class="table table-bordered table-dark table-hover text-center mt-2 shadow-sm rounded" style="font-size: 15px">
     <thead>
-    <tr>
+    <tr style="vertical-align: middle">
       <th scope="col">Product Name</th>
       <th scope="col">Email</th>
       <th scope="col">State</th>
       <th scope="col">Serial Number</th>
       <th scope="col">Created At</th>
+      <th scope="col">Action</th>
     </tr>
     </thead>
     <% if @bets.blank? %>
-      <tr class="table-success">
+      <tr class="table-success" style="vertical-align: middle">
         <td colspan="5"><p> No record found.</p></td>
       </tr>
     <% end %>
     <% @bets.each do |bet| %>
-      <tr class="table-success">
+      <tr class="table-success" style="vertical-align: middle">
         <td><%= bet.item.name %></td>
         <td><%= bet.user.email %></td>
         <td><%= bet.state %></td>
         <td><%= bet.serial_number %></td>
         <td><%= bet.created_at %></td>
+        <td>
+          <%if bet.betting? %>
+          <%= link_to "Cancel", admin_bet_cancel_path(bet), data: { confirm:'Are you sure you want to cancel?'},class: "btn btn-danger col-12 shadow-sm rounded", method: :put  %>
+        <%else %>
+            <%= button_tag "Cancel", disabled: "disabled" ,class: "btn btn-secondary col-12 shadow-sm rounded"%>
+        <%end %>
+        </td>
       </tr>
     <% end %>
   </table>

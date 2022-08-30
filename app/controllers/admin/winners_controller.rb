@@ -16,6 +16,7 @@ class Admin::WinnersController < AdminController
     else
       flash[:alert] = @winner.errors.full_messages.join(', ')
     end
+    redirect_to admin_winners_path
   end
 
   def pay

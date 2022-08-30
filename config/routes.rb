@@ -17,9 +17,13 @@ Rails.application.routes.draw do
       root to: 'dashboards#home'
 
       resources :dashboards, path: 'user-list', only: :index
-      resources :items, path: 'item-list', except: :show
+      resources :items, path: 'item-list', except: :show do
+        put :start, :pause, :end, :cancel
+      end
       resources :categories, path: 'category', except: :show
-      resources :bets, path: 'bet-list', only: :index
+      resources :bets, path: 'bet-list', only: :index do
+        put :cancel
+      end
       resources :winners, path: 'winner-list', only: :index do
         put :submit, :pay, :ship, :deliver, :publish, :remove_publish
       end

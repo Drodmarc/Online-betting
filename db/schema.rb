@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_25_091054) do
+ActiveRecord::Schema.define(version: 2022_08_26_095718) do
 
   create_table "addresses", charset: "utf8mb4", force: :cascade do |t|
     t.integer "genre"
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2022_08_25_091054) do
   create_table "winners", charset: "utf8mb4", force: :cascade do |t|
     t.integer "item_batch_count"
     t.string "state"
-    t.integer "price"
+    t.decimal "price", precision: 10
     t.datetime "paid_at"
     t.string "picture"
     t.string "comment"

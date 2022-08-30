@@ -27,7 +27,7 @@
                 <p class="card-text"><b>Full name:</b> <%= address.name %></p>
                 <p class="card-text"><b>Phone Number:</b> <%= address.phone_number %></p>
                 <p class="card-text">
-                  <b>Address:</b> <%= "#{address.street_address}, #{address.barangay.name}, #{address.city.name}, #{address.province.name}, #{address.region.name}" %>
+                  <b>Address:</b> <%= concat_address(address)%>
                 </p>
               </div>
               <div class="container mt-2">
