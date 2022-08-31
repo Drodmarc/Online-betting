@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   validates :image, :name, :online_at, :offline_at, :start_at, :status, presence: true
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
-  validates :minimum_bets, numericality: { greater_than_or_equal_to: 0 }
+  validates :minimum_bets, numericality: { greater_than: 0 }
   belongs_to :category
   has_many :bets
 
@@ -35,7 +35,7 @@ class Item < ApplicationRecord
     end
 
     event :end do
-      transitions from: :starting, to: :ended
+      transitions from: [:starting, :paused], to: :ended, after: :select_winner, guards: [:count_minimum_bets?]
     end
 
     event :cancel, after: [:increment_quantity, :cancel_bet] do
@@ -48,11 +48,11 @@ class Item < ApplicationRecord
   end
 
   def cancel_bet
-    bets.where(batch_count: batch_count).each  { |bet| bet.cancel! }
+    bets.where(batch_count: batch_count).where.not(state: :cancelled).each { |bet| bet.cancel! }
   end
 
   def set_count
-    update_columns(quantity: quantity - 1, batch_count: batch_count + 1)
+    update(quantity: quantity - 1, batch_count: batch_count + 1)
   end
 
   def greater_than_zero?
@@ -66,4 +66,19 @@ class Item < ApplicationRecord
   def increment_quantity
     update(quantity: quantity + 1)
   end
+
+  def count_minimum_bets?
+    bets.where(batch_count: batch_count).count >= minimum_bets
+  end
+
+  def select_winner
+    item_bets = bets.where(batch_count: batch_count).where.not(state: :cancelled)
+    bet_winner = item_bets.sample
+    bet_winner.win!
+    item_bets.where.not(state: :won).update(state: :lost)
+    winner = Winner.new(item_batch_count: bet_winner.batch_count, user: bet_winner.user, item: bet_winner.item, bet: bet_winner, address: bet_winner.user.addresses.find_by(is_default: true))
+    winner.save!
+  end
 end
+
+

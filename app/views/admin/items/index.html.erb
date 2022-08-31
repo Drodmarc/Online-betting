@@ -55,12 +55,13 @@
           <td>
             <%= link_to "Start", admin_item_start_path(item), class: "btn btn-success col-12 shadow-sm rounded", method: :put if item.may_start? %>
             <%= link_to "Pause", admin_item_pause_path(item), class: "btn btn-success col-12 shadow-sm rounded", method: :put if item.may_pause? %>
-            <%= link_to "End", admin_item_end_path(item), class: "btn btn-success col-12 shadow-sm rounded mt-2", method: :put if item.may_end? %>
+            <%= link_to "Draw", admin_item_end_path(item), data: { confirm:'Are you sure you want to draw?' }, class: "btn btn-warning col-12 shadow-sm rounded mt-2", method: :put if item.may_end? %>
             <%= link_to "Cancel", admin_item_cancel_path(item), class: "btn btn-danger col-12 shadow-sm rounded mt-2",data: { confirm:'Are you sure you want to cancel?' }, method: :put if item.may_cancel? %>
           </td>
           <td>
             <%= link_to "Edit", edit_admin_item_path(item), class: "btn btn-warning col-12 shadow-sm rounded" %>
-            <%= link_to 'Delete', admin_item_path(item), method: :delete, data: { confirm:'Are you sure you want to delete?' }, class: "btn btn-danger col-12 shadow-sm rounded mt-2" %>
+           <hr>
+            <%= link_to 'Delete', admin_item_path(item), method: :delete, data: { confirm:'Are you sure you want to delete?' }, class: "btn btn-danger col-12 shadow-sm rounded" %>
           </td>
         </tr>
       <% end %>
