@@ -1,0 +1,64 @@
+<%= render "layouts/adnav" %>
+<div class="main mt-4">
+  <%= render "shared/flash_error" %>
+  <div class="card shadow rounded">
+    <%= form_tag({ url: admin_offers_path }, { method: :get }) do %>
+      <div class="card-header shadow-sm rounded">
+        <div class="row">
+          <div class="col-8 ">
+            <h1 class="mt-1"><b>Offer List</b></h1>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <%= select_tag :genre, options_for_select(Offer.genres.map { |k, v| [k.humanize.capitalize, v] }), { prompt: 'Select Genre', class: "form-control form-select shadow-sm rounded" } %>
+          </div>
+          <div class="col-6">
+            <%= select_tag :status, options_for_select(Offer.statuses.map { |k, v| [k.humanize.capitalize, v] }), { prompt: 'Select Status', class: "form-control form-select shadow-sm rounded" } %>
+          </div>
+        </div>
+        <div class=" d-flex justify-content-center  mt-3">
+          <%= link_to "Reset", admin_offers_path, class: "btn btn-warning  mt-2 shadow-sm rounded px-5 mx-3" %>
+          <%= submit_tag :Search, class: "btn btn-primary mt-2 shadow-sm  rounded px-5 mx-3" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class=" d-flex justify-content-start  mt-3">
+    <%= link_to "New", new_admin_offer_path, class: "btn btn-success col-2 mt-2 mb-2 shadow-sm rounded" %>
+  </div>
+  <table class="table table-bordered table-dark table-hover text-center mt-2 shadow rounded" style="font-size: 15px">
+    <thead>
+    <tr style="vertical-align: middle">
+      <th scope="col" style="width: 25px">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Genre</th>
+      <th scope="col">Status</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Coin</th>
+      <th scope="col" style="width: 25px">Actions</th>
+    </tr>
+    </thead>
+    <% if @offers.blank? %>
+      <tr class="table-success">
+        <td colspan="7"><p> No record found.</p></td>
+      </tr>
+    <% end %>
+    <% @offers&.each do |offer| %>
+      <tr class="table-light" style="vertical-align: middle">
+        <td><%= image_tag offer.image.url, style: "width: 100px;" %></td>
+        <td><%= offer.name %></td>
+        <td><%= offer.genre %></td>
+        <td><%= offer.status %></td>
+        <td><%= offer.amount %></td>
+        <td><%= offer.coin %></td>
+        <td>
+          <%= link_to "Edit", edit_admin_offer_path(offer), class: "btn btn-warning  shadow-sm rounded d-block mb-3" %>
+          <%= link_to 'Delete', admin_offer_path(offer), method: :delete, data: { confirm: 'Are you sure you want to delete?' }, class: "btn btn-danger shadow-sm rounded d-block" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
