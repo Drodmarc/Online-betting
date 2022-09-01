@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       resources :winners, path: 'winner-list', only: :index do
         put :submit, :pay, :ship, :deliver, :publish, :remove_publish
       end
+      resources :offers, except: :show
     end
   end
 end
