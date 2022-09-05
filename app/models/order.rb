@@ -5,10 +5,7 @@ class Order < ApplicationRecord
   enum genre: [:deposit, :increase, :deduct, :bonus, :share]
   after_create :generate_serial_number
 
-  validates :amount, numericality: { greater_than: 0 }, if: :deposit?
-  validates :amount, numericality: { greater_than_or_equal: 0 }, unless: :deposit?
-
-
+  validates :amount, numericality: { greater_than_or_equal: 0 }
 
   include AASM
   aasm column: :state do
@@ -21,7 +18,7 @@ class Order < ApplicationRecord
 
     event :cancel do
       transitions from: [:pending, :submitted], to: :cancelled
-      transitions from: :paid, to: :cancelled, after: [:after_cancel_update_coins, :deduct_total_deposit], guard: [:check_user_coins?]
+      transitions from: :paid, to: :cancelled, guard: [:check_user_coins?], after: [:after_cancel_update_coins, :deduct_total_deposit]
     end
 
     event :pay do
@@ -55,17 +52,15 @@ class Order < ApplicationRecord
 
   def check_user_coins?
     return true if (user.coins > coin) && !deduct?
-    errors.add(:base, "You deducted too much coins")
+    errors.add(:base, "You don't have enough coins")
     false
   end
 
   def generate_serial_number
-    ActiveRecord::Base.connection.execute("UPDATE `bets` SET `bets`.`serial_number` = CONCAT(DATE_FORMAT(CONVERT_TZ(bets.created_at, '+00:00', '+8:00'), '%y%m%d'),'-',#{id},'-',#{user.id},'-',
+    ActiveRecord::Base.connection.execute("UPDATE `orders` SET `orders`.`serial_number` = CONCAT(DATE_FORMAT(CONVERT_TZ(orders.created_at, '+00:00', '+8:00'), '%y%m%d'),'-',#{id},'-',#{user.id},'-',
                                                       (SELECT LPAD(count(*), 4, 0)
-                                                       FROM `bets` where `bets`.`user_id` = #{user.id}
-                                                       WHERE bets.id = #{id}")
+                                                       FROM `orders` where `orders`.`user_id` = #{user.id}))
+                                                       WHERE orders.id = #{id}")
+
   end
 end
-
-
-

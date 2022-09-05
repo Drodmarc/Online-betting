@@ -1,20 +1,16 @@
 <% if @item.image? %>
   <div class="row mt-4">
-    <div class="col-12 col-lg-2 col-md-2">
-      <%= image_tag @item.image.url, class: "img-thumbnail" %>
-    </div>
-    <div class="col-12 col-lg-5 col-md-5">
-      <div class="form-outline mb-4">
-        <%= f.file_field :image, class: "form-control mt-3 mb-3" %>
-        <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select mb-3" } %>
-        <%= f.select(:status, Item.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: "form-control form-select mb-3") %>
-      </div>
-    </div>
-    <div class="col-12 col-lg-5 col-md-5">
-      <div class="form-outline mb-4 text-center">
-        <%= f.text_field :name, class: "form-control mt-3 mb-3", placeholder: "Name" %>
-        <%= f.text_field :quantity, class: "form-control mb-3", placeholder: "Quantity" %>
-        <%= f.text_field :minimum_bets, class: "form-control mb-3", placeholder: "Minimum Bets" %>
+    <div class="col">
+      <div class="form-outline mb-2 ">
+        <div class="d-flex justify-content-center">
+          <%= image_tag @item.image.url, class: "img-thumbnail shadow-sm border-light" %>
+        </div>
+        <%= f.file_field :image, class: "form-control mt-3 mb-3 shadow-sm" %>
+        <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select mb-3 shadow-sm" } %>
+        <%= f.select(:status, Item.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: "form-control form-select mb-3 shadow-sm") %>
+        <%= f.text_field :name, class: "form-control mt-3 mb-3 shadow-sm", placeholder: "Name" %>
+        <%= f.text_field :quantity, class: "form-control mb-3 shadow-sm", placeholder: "Quantity" %>
+        <%= f.text_field :minimum_bets, class: "form-control shadow-sm mb-3", placeholder: "Minimum Bets" %>
       </div>
     </div>
   </div>
@@ -22,45 +18,45 @@
   <div class="row mt-4">
     <div class="col">
       <div class="form-outline">
-        <%= f.file_field :image, class: "form-control" %>
+        <%= f.file_field :image, class: "form-control shadow-sm" %>
       </div>
     </div>
     <div class="col">
       <div class="form-outline">
-        <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+        <%= f.text_field :name, class: "form-control shadow-sm", placeholder: "Name" %>
       </div>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col">
       <div class="form-outline">
-        <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select" } %>
+        <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select shadow-sm" } %>
       </div>
     </div>
     <div class="col">
       <div class="form-outline mb-3">
-        <%= f.text_field :quantity, class: "form-control", placeholder: "Quantity" %>
+        <%= f.text_field :quantity, class: "form-control shadow-sm", placeholder: "Quantity" %>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col">
       <div class="form-outline mb-4">
-        <%= f.select(:status, Item.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: 'form-control form-select') %>
+        <%= f.select(:status, Item.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: 'form-control form-select shadow-sm') %>
       </div>
     </div>
     <div class="col">
       <div class="form-outline mb-2">
-        <%= f.text_field :minimum_bets, class: "form-control", placeholder: "Minimum Bets" %>
+        <%= f.text_field :minimum_bets, class: "form-control shadow-sm", placeholder: "Minimum Bets" %>
       </div>
     </div>
   </div>
 <% end %>
-<div class="row mt-2">
+<div class="row">
   <div class="col">
     <div class="input-group">
       <span class="input-group-text shadow-sm">Online at</span>
-      <%= f.datetime_field :online_at, class: "form-control" %>
+      <%= f.datetime_field :online_at, class: "form-control shadow-sm" %>
     </div>
   </div>
 </div>
@@ -68,7 +64,7 @@
   <div class="col">
     <div class="input-group mt-3">
       <span class="input-group-text shadow-sm">Offline at</span>
-      <%= f.datetime_field :offline_at, class: "form-control" %>
+      <%= f.datetime_field :offline_at, class: "form-control shadow-sm" %>
     </div>
   </div>
 </div>
@@ -76,7 +72,7 @@
   <div class="col">
     <div class="input-group mt-3 mb-3">
       <span class="input-group-text shadow-sm">Start at</span>
-      <%= f.date_field :start_at, class: "form-control" %>
+      <%= f.date_field :start_at, class: "form-control shadow-sm" %>
     </div>
   </div>
 </div>

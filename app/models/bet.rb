@@ -22,7 +22,7 @@ class Bet < ApplicationRecord
   end
 
   def refund
-    self.user.update(coins: user.coins + 1)
+    user.update(coins: user.coins + 1)
   end
 
   def generate_serial_number

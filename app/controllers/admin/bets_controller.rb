@@ -1,5 +1,5 @@
 class Admin::BetsController < AdminController
-  before_action :set_transition, only: [:cancel]
+  before_action :set_bet, only: :cancel
 
   def index
     @bets = Bet.includes(:user, :item)
@@ -21,7 +21,7 @@ class Admin::BetsController < AdminController
 
   private
 
-  def set_transition
+  def set_bet
     @bet = Bet.find(params[:bet_id])
   end
 end

@@ -1,21 +1,21 @@
 <%= render "users/shared/nav" %>
 <div class="container py-5 h-100 mt-5">
   <%= render "shared/error", resource: @address%>
-  <div class="card bg-secondary w-100 mt-5 shadow   rounded border-light">
+  <div class="card bg-light w-100 mt-5 shadow rounded border-light">
     <div class="mt-md-4">
       <%= form_for @address, url: users_address_path(@address), method: :patch do |f| %>
         <div class="container">
           <div class="row mb-4">
             <div class="col">
-              <%= link_to "Back", users_addresses_path, class: "btn btn-lg px-5 form-control", style: "background-color:orange" %>
+              <%= link_to "Back", users_addresses_path, class: "btn btn-warning px-5 form-control shadow-sm" %>
             </div>
             <div class="col">
               <h2 class="fw-bold mb-3 text-uppercase text-center" style="color:Orange;">Edit</h2>
             </div>
           </div>
         </div>
-        <div class="card w-100 mt-1 ">
-          <div class="card-body bg-secondary">
+        <div class="card w-100 mt-1 border-light">
+          <div class="card-body shadow-sm">
             <div class="form-outline mb-1">
               <%= render "form", f: f %>
               <% if @address.is_default %>
@@ -23,10 +23,10 @@
               <% else %>
                 <%= f.check_box :is_default %>
               <% end %>
-              <%= f.label :Default, class: "text-white" %>
+              <%= f.label :Default %>
             </div>
             <div class="pt-1 mb-4 text-center">
-              <%= f.submit "Update", class: "btn btn-outline-light btn-lg px-5" %>
+              <%= f.submit "Update", data: { confirm: 'Are you sure you want to update?' }, class: "btn btn-success px-5 shadow-sm" %>
             </div>
           </div>
         </div>

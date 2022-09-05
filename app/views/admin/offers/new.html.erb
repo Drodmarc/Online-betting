@@ -8,8 +8,8 @@
         <%= form_for @offer, url: admin_offers_path, method: :post do |f| %>
           <%= render "form", f: f %>
           <div class="text-center mt-3 mb-3">
-            <%= link_to 'Back', admin_offers_path, class: "btn btn-warning px-5 mx-3" %>
-            <%= f.submit "Create", data: { confirm: 'Are you sure you want to create?' }, class: "btn btn-success px-5 mx-3" %>
+            <%= link_to 'Back', admin_offers_path, class: "btn btn-warning px-5 mx-3 shadow-sm" %>
+            <%= f.submit "Create", data: { confirm: 'Are you sure you want to create?' }, class: "btn btn-success px-5 mx-3 shadow-sm" %>
           </div>
         <% end %>
       </div>

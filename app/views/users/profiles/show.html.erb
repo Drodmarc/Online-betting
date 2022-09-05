@@ -1,28 +1,28 @@
 <%= render "users/shared/nav" %>
 <div class="container py-5 mt-5 h-100">
-  <div class="card w-100 mt-5 shadow rounded">
-    <div class="card-body bg-secondary text-white p-4">
+  <div class="card w-100 mt-5 shadow rounded border-light">
+    <div class="card-body bg-light p-4">
       <div class="mb-md-3 mt-md-4 pb-1">
         <div class="container">
           <%= render "shared/flash_error" %>
           <div class="row">
-            <%= image_tag current_user.image.url, class: "rounded-3 ", style: "width: 150px;" if current_user.image?%>
-            <div class="col-8">
+            <%= image_tag current_user.image.url, class: "rounded-3", style: "width: 150px;" if current_user.image? %>
+            <div class="col-8 mt-3">
               <h4 style="color:Orange;"><b><%= current_user.username %></b></h4>
               <p>Email: <%= current_user.email %></p>
               <p>Coins: <%= current_user.coins %></p>
             </div>
           </div>
         </div>
-        <div class="mb-3 mt-4">
-          <a href="#" class="btn btn-outline-light btn-lg form-control">Cash in Now</a>
+        <div class="mb-2 mt-4">
+          <a href="#" class="btn btn-outline-warning form-control shadow-sm text-black">Cash in Now</a>
         </div>
         <div class="row">
           <div class="col">
-            <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-outline-light btn-lg px-5 form-control" %>
+            <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-warning px-5 form-control shadow-sm" %>
           </div>
           <div class="col">
-            <%= link_to "Address", users_addresses_path, class: "btn btn-outline-light btn-lg px-5 form-control" %>
+            <%= link_to "Address", users_addresses_path, class: "btn btn-warning px-5 form-control shadow-sm" %>
           </div>
         </div>
       </div>

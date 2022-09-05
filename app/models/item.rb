@@ -35,7 +35,7 @@ class Item < ApplicationRecord
     end
 
     event :end do
-      transitions from: [:starting, :paused], to: :ended, after: :select_winner, guards: [:count_minimum_bets?]
+      transitions from: [:starting, :paused], to: :ended, guards: [:greater_than_minimum_bets?], after: :select_winner
     end
 
     event :cancel, after: [:increment_quantity, :cancel_bet] do
@@ -60,25 +60,25 @@ class Item < ApplicationRecord
   end
 
   def offline_future?
-    Time.now < offline_at
+    return true if Time.now < offline_at
+    errors.add(:base, "Your item is already offline")
+    false
   end
 
   def increment_quantity
     update(quantity: quantity + 1)
   end
 
-  def count_minimum_bets?
-    bets.where(batch_count: batch_count).count >= minimum_bets
+  def greater_than_minimum_bets?
+    bets.where(batch_count: batch_count).betting.count >= minimum_bets
   end
 
   def select_winner
-    item_bets = bets.where(batch_count: batch_count).where.not(state: :cancelled)
+    item_bets = bets.where(batch_count: batch_count).betting
     bet_winner = item_bets.sample
     bet_winner.win!
-    item_bets.where.not(state: :won).update(state: :lost)
-    winner = Winner.new(item_batch_count: bet_winner.batch_count, user: bet_winner.user, item: bet_winner.item, bet: bet_winner, address: bet_winner.user.addresses.find_by(is_default: true))
+    item_bets.where.not(state: :won).each { |bet| bet.lose! }
+    winner = Winner.new(item_batch_count: bet_winner.batch_count, user: bet_winner.user, item: bet_winner.item, bet: bet_winner)
     winner.save!
   end
 end
-
-
