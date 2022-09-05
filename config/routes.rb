@@ -8,6 +8,9 @@ Rails.application.routes.draw do
       resource :invite_people, path: 'invite-people', only: :show
       resources :addresses
       resources :lotteries
+      resources :offers, path: 'shop', only: :index do
+        post :order
+      end
     end
   end
 
