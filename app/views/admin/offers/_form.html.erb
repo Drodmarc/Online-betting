@@ -2,30 +2,30 @@
   <div class="row mt-4">
     <div class="col">
       <div class="d-flex justify-content-center">
-      <%= image_tag @offer.image.url, class: "img-thumbnail" %>
+      <%= image_tag @offer.image.url, class: "img-thumbnail shadow-sm border-light" %>
       </div>
       <div class="row mt-4">
         <div class="col">
           <div class="form-outline mb-3">
-            <%= f.file_field :image, class: "form-control" %>
+            <%= f.file_field :image, class: "form-control shadow-sm" %>
           </div>
         </div>
         <div class="form-outline mb-3">
-          <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+          <%= f.text_field :name, class: "form-control shadow-sm", placeholder: "Name" %>
         </div>
         <div class="form-outline mb-3">
-          <%= f.select(:genre, Offer.genres.keys.map { |key| [key.humanize, key] }, { prompt: 'Genre' }, class: 'form-control form-select') %>
+          <%= f.select(:genre, Offer.genres.keys.map { |key| [key.humanize, key] }, { prompt: 'Genre' }, class: 'form-control form-select shadow-sm') %>
         </div>
         <div class="form-outline mb-3">
-          <%= f.select(:status, Offer.statuses.keys.map { |key| [key.humanize, key] }, { prompt: 'Status' }, class: 'form-control form-select') %>
+          <%= f.select(:status, Offer.statuses.keys.map { |key| [key.humanize, key] }, { prompt: 'Status' }, class: 'form-control form-select shadow-sm') %>
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text shadow-sm " style="width: 80px">Amount</span>
-          <%= f.text_field :amount, class: "form-control", placeholder: "Amount" %>
+          <%= f.text_field :amount, class: "form-control shadow-sm", placeholder: "Amount" %>
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text mx-auto shadow-sm" style="width: 80px">Coin</span>
-          <%= f.text_field :coin, class: "form-control", placeholder: "Coin" %>
+          <%= f.text_field :coin, class: "form-control shadow-sm", placeholder: "Coin" %>
         </div>
       </div>
     </div>
@@ -34,25 +34,25 @@
   <div class="row mt-4">
     <div class="col">
       <div class="form-outline mb-3">
-        <%= f.file_field :image, class: "form-control" %>
+        <%= f.file_field :image, class: "form-control shadow-sm" %>
       </div>
     </div>
     <div class="form-outline mb-3">
-      <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+      <%= f.text_field :name, class: "form-control shadow-sm", placeholder: "Name" %>
     </div>
     <div class="form-outline mb-3">
-      <%= f.select(:genre, Offer.genres.keys.map { |key| [key.humanize, key] }, { prompt: 'Genre' }, class: 'form-control form-select') %>
+      <%= f.select(:genre, Offer.genres.keys.map { |key| [key.humanize, key] }, { prompt: 'Genre' }, class: 'form-control form-select shadow-sm') %>
     </div>
     <div class="form-outline mb-3">
-      <%= f.select(:status, Offer.statuses.keys.map { |key| [key.humanize, key] }, { prompt: 'Status' }, class: 'form-control form-select') %>
+      <%= f.select(:status, Offer.statuses.keys.map { |key| [key.humanize, key] }, { prompt: 'Status' }, class: 'form-control form-select shadow-sm') %>
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text shadow-sm " style="width: 80px">Amount</span>
-      <%= f.text_field :amount, class: "form-control", placeholder: "Amount" %>
+      <%= f.text_field :amount, class: "form-control shadow-sm", placeholder: "Amount" %>
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text mx-auto shadow-sm" style="width: 80px">Coin</span>
-      <%= f.text_field :coin, class: "form-control", placeholder: "Coin" %>
+      <%= f.text_field :coin, class: "form-control shadow-sm", placeholder: "Coin" %>
     </div>
   </div>
 <% end %>

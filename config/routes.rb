@@ -14,20 +14,20 @@ Rails.application.routes.draw do
   constraints(AdminDomainConstraint.new) do
     namespace :admin, path: '' do
       devise_for :users, controllers: { sessions: 'admin/sessions' }
-      root to: 'dashboards#home'
+      root to: 'dashboards#index'
 
-      resources :dashboards, path: 'user-list', only: :index
-      resources :items, path: 'item-list', except: :show do
+      resources :users, path: 'users-list', only: :index
+      resources :items, path: 'items-list', except: :show do
         put :start, :pause, :end, :cancel
       end
-      resources :categories, path: 'category', except: :show
-      resources :bets, path: 'bet-list', only: :index do
+      resources :categories, except: :show
+      resources :bets, path: 'bets-list', only: :index do
         put :cancel
       end
-      resources :winners, path: 'winner-list', only: :index do
+      resources :winners, path: 'winners-list', only: :index do
         put :submit, :pay, :ship, :deliver, :publish, :remove_publish
       end
-      resources :offers, except: :show
+      resources :offers, path: 'offers-list', except: :show
     end
   end
 end

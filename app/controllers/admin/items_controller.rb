@@ -1,10 +1,10 @@
 class Admin::ItemsController < AdminController
-  before_action :set_item, only: [:edit, :update, :destroy, :start, :pause, :end, :cancel]
+  before_action :set_item, except: [:index, :new, :create]
 
   def index
     @items = Item.includes(:category)
-    if params['item'].present?
-      @items = @items.where(name: params['item'])
+    if params['name'].present?
+      @items = @items.where(name: params['name'])
     end
   end
 

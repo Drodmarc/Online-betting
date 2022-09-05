@@ -3,8 +3,8 @@ class Admin::CategoriesController < AdminController
 
   def index
     @categories = Category.all
-    if params['category'].present?
-      @categories = @categories.where(name: params['category'])
+    if params['category_name'].present?
+      @categories = @categories.where(name: params['category_name'])
     end
   end
 

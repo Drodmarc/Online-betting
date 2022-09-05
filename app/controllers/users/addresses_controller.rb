@@ -49,4 +49,3 @@ class Users::AddressesController < ApplicationController
     params.require(:address).permit(:name, :phone_number, :street_address, :genre, :region_id, :province_id, :city_id, :barangay_id, :remark, :is_default)
   end
 end
-
