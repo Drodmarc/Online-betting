@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         post :order
       end
       resources :winners, only: [:show, :update]
+      resources :shares, only: [:show, :update]
     end
   end
 

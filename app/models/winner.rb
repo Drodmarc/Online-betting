@@ -1,9 +1,12 @@
 class Winner < ApplicationRecord
+  validates  :picture, :comment, presence: true
   belongs_to :item
   belongs_to :user
   belongs_to :admin, class_name: "User", optional: true
   belongs_to :address, optional: true
   belongs_to :bet
+
+  mount_uploader :picture, ImageUploader
 
   include AASM
   aasm column: :state do

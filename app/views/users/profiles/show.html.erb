@@ -66,6 +66,7 @@
           <div><b>Serial Number: </b><%= winner.bet.serial_number %></div>
           <div class="d-flex justify-content-start mt-2">
             <%= link_to "Claim", users_winner_path(winner), class:"btn btn-sm btn-danger px-3" if winner.may_claim?%>
+            <%= link_to "Share", users_share_path(winner), class:"btn btn-sm btn-primary px-3" if winner.may_share?%>
           </div>
         </div>
       </div>
