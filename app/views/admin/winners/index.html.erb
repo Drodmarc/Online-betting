@@ -51,6 +51,8 @@
       <th scope="col">Serial Number</th>
       <th scope="col">Email</th>
       <th scope="col">Address</th>
+      <th scope="col">Name</th>
+      <th scope="col">Contact No.</th>
       <th scope="col">State</th>
       <th scope="col">Created At</th>
       <th scope="col">Actions</th>
@@ -66,6 +68,8 @@
         <td> <%= winner.bet.serial_number %></td>
         <td><%= winner.user.email %></td>
         <td><%= concat_address(winner.address) %></td>
+        <td><%= winner.address.name %></td>
+        <td><%= winner.address.phone_number %></td>
         <td><%= winner.state %></td>
         <td><%= winner.created_at %></td>
         <td>

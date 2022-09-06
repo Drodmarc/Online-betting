@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :offers, path: 'shop', only: :index do
         post :order
       end
+      resources :winners, only: [:show, :update]
     end
   end
 
