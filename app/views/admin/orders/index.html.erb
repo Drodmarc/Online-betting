@@ -1,0 +1,111 @@
+<%= render "layouts/adnav" %>
+<div class="main mt-4">
+  <%= render "shared/flash_error" %>
+  <div class="card shadow rounded">
+    <%= form_tag({ url: admin_orders_path }, { method: :get }) do %>
+      <div class="card-header shadow-sm rounded">
+        <div class="row">
+          <div class="col-8 ">
+            <h1 class="mt-1"><b>Orders List</b></h1>
+          </div>
+          <div class="col-2 ">
+            <%= link_to "Reset", admin_orders_path, class: "btn btn-warning col-12 mt-2 shadow-sm rounded" %>
+          </div>
+          <div class="col-2 ">
+            <%= submit_tag :Search, class: "btn btn-primary col-12 mt-2 shadow-sm rounded" %>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <%= text_field_tag :serial_number, params[:serial_number], placeholder: "Serial Number", class: "form-control shadow-sm rounded" %>
+          </div>
+          <div class="col-6">
+            <%= text_field_tag :email, params[:email], placeholder: "Email", class: "form-control shadow-sm rounded" %>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4">
+            <%= select_tag :state, options_for_select(Order.aasm.states.map(&:name), params[:state]), { prompt: 'Select State', class: "form-control form-select shadow-sm rounded" } %>
+          </div>
+          <div class="col-4">
+            <%= select_tag :genre, options_for_select(Order.genres.map { |k, v| [k.humanize.capitalize, v] }), { prompt: 'Select Genre', class: "form-control form-select shadow-sm rounded" } %>
+          </div>
+          <div class="col-4">
+            <%= select_tag :name, options_for_select(Offer.all.map(&:name)), { prompt: 'Select Offer', class: "form-control form-select shadow-sm rounded" } %>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <div class="input-group">
+              <span class="input-group-text shadow-sm">Start Date</span>
+              <%= datetime_field_tag :start, params[:start], class: "form-control shadow-sm" %>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group">
+              <span class="input-group-text shadow-sm">End Date</span>
+              <%= datetime_field_tag :end, params[:end], class: "form-control shadow-sm" %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    </div>
+  </div>
+  <table class="table table-bordered table-hover text-center shadow rounded mt-3" style="font-size: 15px">
+    <thead class="bg-dark text-white">
+    <tr>
+      <th style="width: 25px"></th>
+      <th scope="col" class="text-center" style="width: 50%">Subtotal</th>
+      <th scope="col" class="text-center" style="width: 50%">Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><b>Amount</b></td>
+      <td class="text-center"><%= @subtotal_amount %></td>
+      <td class="text-center"><%= @total_amount %></td>
+    </tr>
+    <tr>
+      <td><b>Coins</b></td>
+      <td class="text-center"><%= @subtotal_coin %></td>
+      <td class="text-center"><%= @total_coin %></td>
+    </tr>
+    </tbody>
+  </table>
+  <table class="table table-bordered table-dark table-hover text-center shadow rounded" style="font-size: 15px">
+    <thead>
+    <tr style="vertical-align: middle">
+      <th scope="col">Serial Number</th>
+      <th scope="col">Email</th>
+      <th scope="col">Genre</th>
+      <th scope="col">State</th>
+      <th scope="col">Offer</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Created at</th>
+      <th scope="col" style="width: 25px">Actions</th>
+    </tr>
+    </thead>
+    <% if @orders.blank? %>
+      <tr class="table-light">
+        <td colspan="7"><p> No record found.</p></td>
+      </tr>
+    <% end %>
+    <% @orders.each do |order| %>
+      <tr class="table-light" style="vertical-align: middle">
+        <td> <%= order.serial_number %></td>
+        <td><%= order.user.email %></td>
+        <td><%= order.genre %></td>
+        <td><%= order.state %></td>
+        <td><%= order.offer&.name %></td>
+        <td><%= order.amount %></td>
+        <td><%= order.created_at %></td>
+        <td>
+          <%= link_to "Pay", admin_order_pay_path(order), data: { confirm: 'Are you sure you want to pay?' }, class: "btn btn-primary shadow-sm rounded d-block mb-2", method: :put if order.may_pay? %>
+          <%= link_to "Cancel", admin_order_cancel_path(order), data: { confirm: 'Are you sure you want to cancel?' }, class: "btn btn-danger shadow-sm rounded d-block", method: :put if order.may_cancel? %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

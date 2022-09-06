@@ -31,6 +31,9 @@ Rails.application.routes.draw do
         put :submit, :pay, :ship, :deliver, :publish, :remove_publish
       end
       resources :offers, path: 'offers-list', except: :show
+      resources :orders, path: 'orders-list', only: :index do
+        put :pay, :cancel
+      end
     end
   end
 end
