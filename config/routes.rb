@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
       resources :winners, only: [:show, :update]
       resources :shares, only: [:show, :update]
+      resources :feedbacks, only: [:show, :index]
     end
   end
 

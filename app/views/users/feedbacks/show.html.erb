@@ -1,0 +1,12 @@
+<%= render "users/shared/nav" %>
+<div class="container" style="margin-top: 100px; margin-bottom: 100px">
+  <h1 class=" mt-1 mx-3"><b>Winner Feedback</b></h1>
+  <div class="card mt-3 shadow border-light bg-light">
+    <div class="rounded-start">
+      <%= image_tag @winner.picture.url, style: "width: 100%;" %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title" style="color:darkorange;"><%= @winner.user.username %></h5>
+      <p class="card-text"><b></b> <%= @winner.comment %></p></div>
+  </div>
+</div>

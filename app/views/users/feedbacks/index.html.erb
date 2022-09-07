@@ -1,0 +1,22 @@
+<%= render "users/shared/nav" %>
+<%= render "users/shared/carousel" %>
+<div class="container" style="margin-bottom: 100px">
+  <h1 class=" mt-1 mx-3"><b>Winners Feedback</b></h1>
+    <% @winners.each do |winner| %>
+    <%= link_to users_feedback_path(winner), class: "text-decoration-none text-dark" do %>
+      <div class="card mt-3 shadow border-light bg-light">
+        <div class="row">
+          <div class="col-3">
+            <div class="rounded-start ">
+              <%= image_tag winner.picture.url, style: "width: 100%;" %>
+            </div>
+          </div>
+          <div class="col mt-4" style="vertical-align: middle">
+            <h5 class="card-title" style="color:darkorange;"><%= winner.user.username %></h5>
+            <p class="card-text"><b></b> <%= winner.comment %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
