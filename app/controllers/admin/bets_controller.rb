@@ -2,7 +2,7 @@ class Admin::BetsController < AdminController
   before_action :set_bet, only: :cancel
 
   def index
-    @bets = Bet.includes(:user, :item)
+    @bets = Bet.includes(:user, :item).order(id: :desc)
     @bets = @bets.where(serial_number: params[:serial_number]) if params[:serial_number].present?
     @bets = @bets.where(item: { name: params[:product_name] }) if params[:product_name].present?
     @bets = @bets.where(user: { email: params[:email] }) if params[:email].present?

@@ -2,7 +2,7 @@ class Users::AddressesController < ApplicationController
   before_action :set_address, only: [:edit, :update, :destroy]
 
   def index
-    @addresses = current_user.addresses.includes(:region, :province, :city, :barangay)
+    @addresses = current_user.addresses.includes(:region, :province, :city, :barangay).order(id: :desc)
   end
 
   def new

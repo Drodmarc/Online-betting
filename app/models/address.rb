@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  LIMIT = 2
+  LIMIT = 5
   validates :name, :street_address, :genre, presence: true
   validates_presence_of :is_default, { allow_blank: true }
   validates :phone_number, phone: true

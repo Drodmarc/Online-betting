@@ -5,9 +5,9 @@ class Users::SharesController < ApplicationController
   def show; end
 
   def update
-    if @winner.share! && @winner.update(set_address)
+    if @winner.update(winner_params) && @winner.share!
       flash[:notice] = "Shared Feedback Successfully !"
-      redirect_to users_profile_path(records: 'winner')
+      redirect_to users_profile_path(records: :winner)
     else
       flash[:alert] = @winner.errors.full_messages.join(', ') || 'Failed'
       render :show
@@ -17,10 +17,10 @@ class Users::SharesController < ApplicationController
   private
 
   def set_winner
-    @winner = Winner.where(user: current_user).find(params[:id])
+    @winner = Winner.where(user: current_user).delivered.find(params[:id])
   end
 
-  def set_address
+  def winner_params
     params.require(:winner).permit(:comment, :picture)
   end
 end

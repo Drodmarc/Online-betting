@@ -2,7 +2,7 @@ class Admin::WinnersController < AdminController
   before_action :set_winner, except: [:index]
 
   def index
-    @winners = Winner.includes(:user, :item, :bet, :address)
+    @winners = Winner.includes(:user, :item, :bet, :address).order(id: :desc)
     @winners = @winners.where(bet: { serial_number: params[:serial_number] }) if params[:serial_number].present?
     @winners = @winners.where(item: { name: params[:product_name] }) if params[:product_name].present?
     @winners = @winners.where(user: { email: params[:email] }) if params[:email].present?

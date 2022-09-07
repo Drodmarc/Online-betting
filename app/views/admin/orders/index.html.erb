@@ -30,10 +30,10 @@
             <%= select_tag :state, options_for_select(Order.aasm.states.map(&:name), params[:state]), { prompt: 'Select State', class: "form-control form-select shadow-sm rounded" } %>
           </div>
           <div class="col-4">
-            <%= select_tag :genre, options_for_select(Order.genres.map { |k, v| [k.humanize.capitalize, v] }), { prompt: 'Select Genre', class: "form-control form-select shadow-sm rounded" } %>
+            <%= select_tag :genre, options_for_select(Order.genres.map { |k, v| [k.humanize.capitalize, v]}, params[:genre]), { prompt: 'Select Genre', class: "form-control form-select shadow-sm rounded" } %>
           </div>
           <div class="col-4">
-            <%= select_tag :name, options_for_select(Offer.all.map(&:name)), { prompt: 'Select Offer', class: "form-control form-select shadow-sm rounded" } %>
+            <%= select_tag :name, options_for_select(Offer.all.map(&:name), params[:name]),{ prompt: 'Select Offer', class: "form-control form-select shadow-sm rounded" } %>
           </div>
         </div>
         <div class="row mt-3">
@@ -83,13 +83,14 @@
       <th scope="col">State</th>
       <th scope="col">Offer</th>
       <th scope="col">Amount</th>
+      <th scope="col">Coins</th>
       <th scope="col">Created at</th>
       <th scope="col" style="width: 25px">Actions</th>
     </tr>
     </thead>
     <% if @orders.blank? %>
       <tr class="table-light">
-        <td colspan="7"><p> No record found.</p></td>
+        <td colspan="9"><p> No record found.</p></td>
       </tr>
     <% end %>
     <% @orders.each do |order| %>
@@ -100,6 +101,7 @@
         <td><%= order.state %></td>
         <td><%= order.offer&.name %></td>
         <td><%= order.amount %></td>
+        <td><%= order.coin %></td>
         <td><%= order.created_at %></td>
         <td>
           <%= link_to "Pay", admin_order_pay_path(order), data: { confirm: 'Are you sure you want to pay?' }, class: "btn btn-primary shadow-sm rounded d-block mb-2", method: :put if order.may_pay? %>

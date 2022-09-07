@@ -12,8 +12,8 @@
           <%= link_to "Sign Up", new_user_registration_path, class: "nav-link text-white" %>
         </li>
       <% else %>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#">Coins</a>
+        <li class="nav-item" style="width: 90px">
+          <a class="nav-link text-white" href="#"><div class="d-inline-block"><%= current_user.coins%></div> <img src="https://www.svgrepo.com/show/227993/coin.svg", class="d-inline-block my-auto" style="width: 20px; position: relative; top: -2px"> </a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="#">Claim</a>

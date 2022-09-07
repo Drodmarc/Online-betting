@@ -68,8 +68,8 @@
         <td> <%= winner.bet.serial_number %></td>
         <td><%= winner.user.email %></td>
         <td><%= concat_address(winner.address) %></td>
-        <td><%= winner.address.name %></td>
-        <td><%= winner.address.phone_number %></td>
+        <td><%= winner.address&.name %></td>
+        <td><%= winner.address&.phone_number %></td>
         <td><%= winner.state %></td>
         <td><%= winner.created_at %></td>
         <td>

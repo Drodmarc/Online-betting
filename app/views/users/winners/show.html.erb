@@ -1,5 +1,5 @@
 <%= render "users/shared/nav" %>
-<div class="container py-5 h-100 mt-5">
+<div class="container py-5 h-100 mt-5 mb-5">
   <%= render "shared/flash_error" %>
   <div class="card bg-light w-100 mt-5 shadow rounded border-light">
     <div class="mb-md-2 mt-md-4 pb-1">
@@ -27,18 +27,16 @@
                     <div class=" d-flex justify-content-end ">
                       <%= f.radio_button :address, address.id, checked: address.is_default %>
                     </div>
-                    <b><%= content_tag :div, address.genre, class: "badge bg-primary" %> &nbsp; <%= content_tag :div, 'Default', class: "badge bg-danger" if address.is_default %></b>
+                    <b><%= content_tag :div, address.genre, class: "badge bg-primary mb-3" %> &nbsp; <%= content_tag :div, 'Default', class: "badge bg-danger" if address.is_default %></b>
                     <p class="card-text"><b>Full name:</b> <%= address.name %></p>
                     <p class="card-text"><b>Phone Number:</b> <%= address.phone_number %></p>
-                    <p class="card-text">
-                      <b>Address:</b> <%= concat_address(address) %>
-                    </p>
+                    <p class="card-text"><b>Address:</b> <%= concat_address(address) %></p>
                   </div>
                 </div>
               </div>
             <% end %>
             <div class="d-flex justify-content-center mt-3 mb-2">
-              <%= link_to " Back", users_profile_path(records: :winning), class: "btn btn-warning px-5 mx-3" %>
+              <%= link_to " Back", users_profile_path(records: :winner), class: "btn btn-warning px-5 mx-3" %>
               <%= f.submit "Submit", data: { confirm:'Are you sure you want to submit?' }, class: "btn btn-success px-5 mx-3" %>
             </div>
           <% end %>

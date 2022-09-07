@@ -62,7 +62,7 @@ class Admin::ItemsController < AdminController
 
   def end
     if @item.end!
-      flash[:notice] = "Ended Successfully"
+      flash[:notice] = "#{Bet.where(batch_count:  @item.batch_count).where(item:  @item).won.first.user.email} won the #{@item.name}!!"
     else
       flash[:alert] = @item.errors.full_messages.join(', ')
     end
