@@ -14,6 +14,9 @@ Rails.application.routes.draw do
       resources :winners, only: [:show, :update]
       resources :shares, only: [:show, :update]
       resources :feedbacks, only: [:show, :index]
+      scope  :orders, path: 'orders', as: 'orders' do
+        put "cancel/:order_id", to: 'orders#cancel'
+      end
     end
   end
 

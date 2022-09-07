@@ -43,6 +43,9 @@
           <div><b>Coins: </b><%= order.coin %></div>
           <div><b>Serial Number: </b><%= order.serial_number %></div>
           <div><b>Created at: </b><%= order.created_at %></div>
+          <div class="d-flex justify-content-start mt-2">
+            <%= link_to "Cancel", users_orders_path(order), data: { confirm: 'Are you sure you want to cancel?' }, class: "btn btn-sm btn-danger px-3", method: :put if order.submitted?%>
+          </div>
         </div>
       </div>
     <% end %>
