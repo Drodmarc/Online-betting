@@ -25,7 +25,11 @@ Rails.application.routes.draw do
       devise_for :users, controllers: { sessions: 'admin/sessions' }
       root to: 'dashboards#index'
 
-      resources :users, path: 'users-list', only: :index
+      resources :users, only: :index do
+        resources :increases, path: 'orders/increase', only: [:new, :create]
+        resources :deducts, path: 'orders/deduct', only: [:new, :create]
+        resources :bonuses, path: 'orders/bonus', only: [:new, :create]
+      end
       resources :items, path: 'items-list', except: :show do
         put :start, :pause, :end, :cancel
       end

@@ -24,6 +24,7 @@
       <th scope="col">Total Used Coins</th>
       <th scope="col">Total Deposit</th>
       <th scope="col">Member Total Deposits</th>
+      <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +32,7 @@
       <tr class="table-light" style="vertical-align: middle">
         <td colspan="8"><p> No record found.</p></td>
       </tr>
-    <% else %>
+    <% end %>
       <% @users.each do |user| %>
         <tr class="table-light" style="vertical-align: middle">
           <td><%= user.email %></td>
@@ -42,9 +43,9 @@
           <td><%= user.total_used_coins %></td>
           <td><%= user.total_deposit %></td>
           <td><%= user.member_total_deposits %></td>
+          <td><%= link_to "Balance", new_admin_user_increase_path(user), class: "btn btn-warning btn-sm shadow-sm rounded", style:"font: 10px"%></td>
         </tr>
       <% end %>
-    <% end %>
     </tbody>
   </table>
 </div>
