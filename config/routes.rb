@@ -45,6 +45,7 @@ Rails.application.routes.draw do
         put :pay, :cancel
       end
       resources :invites, path: 'invites-list', only: :index
+      resources :news_tickers, path: 'news-ticker', except: :show
     end
   end
 end

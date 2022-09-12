@@ -1,0 +1,46 @@
+<%= render "layouts/adnav" %>
+<div class="main mt-4">
+  <div class="row">
+    <div class="col">
+      <h1><b>News Tickers List</b></h1>
+    </div>
+    <div class="col">
+      <%= form_tag({ url: admin_invites_path }, { method: :get }) do %>
+        <div class="d-flex justify-content-end" style="font-size: 15px">
+          <div class="input-group">
+            <%= text_field_tag :content, params[:content], placeholder: "Content", class: "form-control shadow-sm" %>
+            <%= submit_tag :Search, class: "btn btn-primary px-4" %>
+          </div>
+          <%= link_to "New", new_admin_news_ticker_path, class: "btn btn-success px-4 d-flex justify-content-end shadow-sm mx-2", style: "font-size:1rem;" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= render "shared/flash_error" %>
+  <table class="table table-bordered table-dark table-hover text-center shadow rounded" style="font-size: 15px">
+    <thead>
+    <tr style="vertical-align: middle">
+      <th scope="col">Content</th>
+      <th scope="col">Status</th>
+      <th style="width: 25px" scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% if @news_tickers.blank? %>
+      <tr class="table-light" style="vertical-align: middle">
+        <td colspan="3"><p> No record found.</p></td>
+      </tr>
+    <% end %>
+    <% @news_tickers&.each do |news_ticker| %>
+      <tr class="table-light" style="vertical-align: middle">
+        <td><%= news_ticker.content %></td>
+        <td><%= news_ticker.status %></td>
+        <td>
+          <%= link_to "Edit", edit_admin_news_ticker_path(news_ticker), class: "btn btn-warning shadow-sm px-4 mb-2" %>
+          <%= link_to 'Delete', admin_news_ticker_path(news_ticker), method: :delete, data: { confirm: 'Are you sure you want to delete?' }, class: "btn btn-danger px-3 shadow-sm rounded" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

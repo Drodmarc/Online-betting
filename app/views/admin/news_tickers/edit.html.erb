@@ -1,0 +1,26 @@
+<%= render "layouts/adnav" %>
+<div class="main mt-4">
+  <div class="container">
+    <h1><b>Edit News Ticker</b></h1>
+    <div class="card w-100 mt-3 mb-5 shadow border-light">
+      <div class="card-body bg-light">
+        <%= form_for @news_ticker, url: admin_news_ticker_path, method: :patch do |f| %>
+          <div class="row mt-3">
+            <div class="col">
+              <div class="form-outline mb-4">
+                <%= f.text_area :content, class: "form-control shadow-sm", placeholder: "Type Content Here!", :cols => 30, :rows => 2 %>
+                <%= content_tag :p, @news_ticker.errors.full_messages_for(:content).join(', '), class: 'text-danger' if @news_ticker.errors.has_key?(:content) %>
+                <%= f.select(:status, NewsTicker.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: "form-control form-select mt-3 shadow-sm") %>
+                <%= content_tag :p, @news_ticker.errors.full_messages_for(:status).join(', '), class: 'text-danger' if @news_ticker.errors.has_key?(:status) %>
+              </div>
+            </div>
+            <div class="pt-1 text-center mb-2">
+              <%= link_to 'Back', admin_news_tickers_path, class: "btn btn-warning px-5 mx-3 shadow-sm" %>
+              <%= f.submit "Update", data: { confirm: 'Are you sure you want to update?' }, class: "btn btn-success px-5 mx-3 shadow-sm" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
