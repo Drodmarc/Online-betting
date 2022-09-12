@@ -5,13 +5,13 @@
       <h1><b>Categories</b></h1>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-12 col-12 d-flex justify-content-end">
-      <%= form_tag({ url: admin_items_path }, { method: :get }) do%>
+      <%= form_tag({ url: admin_items_path }, { method: :get }) do %>
         <div class="d-flex w-100 justify-content-end">
-          <div class="input-group w-100">
-          <%= text_field_tag :category_name%>
+          <div class="input-group">
+            <%= text_field_tag :category_name, params[:category_name], placeholder: "Category Name", class: "form-control shadow-sm" %>
+            <%= submit_tag :Search, class: "btn btn-primary px-4" %>
           </div>
-          <%= submit_tag :Search, class: "btn btn-primary px-4" %> &nbsp;
-          <%= link_to "New", new_admin_category_path, class: "btn btn-success px-4 btn-lg form-control", style:"font-size:1rem;" %>
+          <%= link_to "New", new_admin_category_path, class: "btn btn-success px-4 d-flex justify-content-end shadow-sm mx-2", style: "font-size:1rem;" %>
         </div>
       <% end %>
     </div>
@@ -32,14 +32,14 @@
     <% else %>
       <% @categories.each do |category| %>
         <tr class="table-light ">
-          <td  style="vertical-align: middle"><%= category.name %></td>
+          <td style="vertical-align: middle"><%= category.name %></td>
           <td>
             <div class="row">
               <div class="col">
-                <%= link_to "Edit", edit_admin_category_path(category), class: "btn btn-warning form-control mt-1 shadow-sm", style:"font-size:1rem;" %>
+                <%= link_to "Edit", edit_admin_category_path(category), class: "btn btn-warning form-control mt-1 shadow-sm", style: "font-size:1rem;" %>
               </div>
               <div class="col">
-                <%= link_to 'Delete', admin_category_path(category), method: :delete, data: { confirm:'Are you sure you want to delete?' }, class: "btn btn-danger form-control mt-1 shadow-sm", style:"font-size:1rem;" %>
+                <%= link_to 'Delete', admin_category_path(category), method: :delete, data: { confirm: 'Are you sure you want to delete?' }, class: "btn btn-danger form-control mt-1 shadow-sm", style: "font-size:1rem;" %>
               </div>
             </div>
           </td>

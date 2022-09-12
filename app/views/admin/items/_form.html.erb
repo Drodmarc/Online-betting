@@ -3,7 +3,7 @@
     <div class="col">
       <div class="form-outline mb-2 ">
         <div class="d-flex justify-content-center">
-          <%= image_tag @item.image.url, class: "img-thumbnail shadow-sm border-light" %>
+          <%= image_tag @item.image.url, class: "img-thumbnail shadow-sm border-light", style:"width: 20%"%>
         </div>
         <%= f.file_field :image, class: "form-control mt-3 mb-3 shadow-sm" %>
         <%= f.collection_select :category_id, Category.order(:id), :id, :name, { include_blank: "Category" }, { class: "form-control form-select mb-3 shadow-sm" } %>

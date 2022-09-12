@@ -1,10 +1,11 @@
 <%= render "layouts/adnav" %>
 <div class="main mt-4">
+  <div class="container">
   <h1><b>Edit Item</b></h1>
   <%= render "shared/error", resource: @item %>
-  <div class="card w-100 mt-1 shadow border-light">
+  <div class="card w-100 mt-3 shadow border-light">
     <div class="card-body bg-light">
-      <div class="container">
+
         <%= form_for @item, url: admin_item_path(@item), method: :patch do |f| %>
           <%= render "form", f: f %>
           <div class="pt-1 text-center">

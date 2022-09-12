@@ -1,6 +1,6 @@
 class Users::LotteriesController < ApplicationController
   before_action :authenticate_user!, only: :create
-  before_action :set_item, only: [:create]
+  before_action :set_item, only: :create
 
   def index
     @items = Item.active.starting
@@ -15,24 +15,29 @@ class Users::LotteriesController < ApplicationController
   end
 
   def create
-    begin
-      loop_count = params[:bet][:coins].to_i
-      params[:bet][:coins] = 1
-      params[:bet][:item_id] = @item
-      ActiveRecord::Base.transaction do
-        loop_count.times do
-          @bet = Bet.new(bet_params)
-          @bet.item = @item
-          @bet.user = current_user
-          @bet.batch_count = @item.batch_count
-          @bet.save!
+    if current_user.coins >= params[:bet][:coins].to_i
+      begin
+        loop_count = params[:bet][:coins].to_i
+        params[:bet][:coins] = 1
+        params[:bet][:item_id] = @item
+        ActiveRecord::Base.transaction do
+          loop_count.times do
+            @bet = Bet.new(bet_params)
+            @bet.item = @item
+            @bet.user = current_user
+            @bet.batch_count = @item.batch_count
+            @bet.save!
+          end
         end
+        flash[:notice] = "Bet successfully "
+      rescue ActiveRecord::RecordInvalid => exception
+        flash[:alert] = exception
       end
-      flash[:notice] = "successfully created"
-    rescue ActiveRecord::RecordInvalid => exception
-      flash[:alert] = exception
+      redirect_to users_lottery_path(@item)
+      else
+        flash[:alert] = "Your coins is #{current_user.coins}, it is insufficient for your bet. Buy coins and bet again!"
+      redirect_to users_lottery_path(@item)
     end
-    redirect_to users_lottery_path(@bet.item)
   end
 
   private

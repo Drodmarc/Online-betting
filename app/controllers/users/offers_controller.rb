@@ -7,21 +7,27 @@ class Users::OffersController < ApplicationController
   end
 
   def order
-    @order = Order.new()
+    @order = Order.new
     @order.genre = :deposit
     @order.amount = @offer.amount
     @order.coin = @offer.coin
     @order.user = current_user
     @order.offer = @offer
-
     if @order.save
-      flash[:notice] = "Ordered successfully"
+      if @order.may_submit? && @order.submit!
+        flash[:notice] = "Ordered successfully"
+      else
+        flash[:alert] = "Ordered failed"
+        @order.cancel!
+      end
       redirect_to users_offers_path
     else
       flash[:alert] = @order.errors.full_messages.join(', ')
       render :index
     end
   end
+
+  private
 
   def set_order
     @offer = Offer.active.find(params[:offer_id])

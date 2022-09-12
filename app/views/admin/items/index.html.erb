@@ -7,9 +7,11 @@
     <div class="col">
       <%= form_tag({ url: admin_items_path }, { method: :get }) do %>
         <div class="d-flex justify-content-end">
-          <%= text_field_tag :name %>
-          <%= submit_tag :Search, class: "btn btn-primary shadow-sm px-4" %> &nbsp;
-          <%= link_to "New", new_admin_item_path, class: "btn btn-success btn-lg px-4 d-flex justify-content-end shadow-sm", style: "font-size:1rem;" %>
+          <div class="input-group">
+            <%= text_field_tag :name, params[:name], placeholder: "Name", class: "form-control shadow-sm" %>
+            <%= submit_tag :Search, class: "btn btn-primary shadow-sm px-4" %> &nbsp;
+          </div>
+          <%= link_to "New", new_admin_item_path, class: "btn btn-success px-4", style: "font-size:1rem;" %>
         </div>
       <% end %>
     </div>
@@ -53,15 +55,15 @@
           <td><%= item.start_at %></td>
           <td><%= item.status %></td>
           <td>
-            <%= link_to "Start", admin_item_start_path(item), data: { confirm:'Are you sure you want to start?' }, class: "btn btn-success col-12 shadow-sm rounded", method: :put if item.may_start? %>
-            <%= link_to "Pause", admin_item_pause_path(item), data: { confirm:'Are you sure you want to pause?' }, class: "btn btn-success col-12 shadow-sm rounded", method: :put if item.may_pause? %>
-            <%= link_to "Draw", admin_item_end_path(item), data: { confirm:'Are you sure you want to draw?' }, class: "btn btn-warning col-12 shadow-sm rounded mt-2", method: :put if item.may_end? %>
-            <%= link_to "Cancel", admin_item_cancel_path(item), data: { confirm:'Are you sure you want to cancel?' }, class: "btn btn-danger col-12 shadow-sm rounded mt-2", method: :put if item.may_cancel? %>
+            <%= link_to "Start", admin_item_start_path(item), data: { confirm: 'Are you sure you want to start?' }, class: "btn btn-success col-12 shadow-sm rounded", method: :put if item.may_start? %>
+            <%= link_to "Pause", admin_item_pause_path(item), data: { confirm: 'Are you sure you want to pause?' }, class: "btn btn-success col-12 shadow-sm rounded", method: :put if item.may_pause? %>
+            <%= link_to "Draw", admin_item_end_path(item), data: { confirm: 'Are you sure you want to draw?' }, class: "btn btn-warning col-12 shadow-sm rounded mt-2", method: :put if item.may_end? %>
+            <%= link_to "Cancel", admin_item_cancel_path(item), data: { confirm: 'Are you sure you want to cancel?' }, class: "btn btn-danger col-12 shadow-sm rounded mt-2", method: :put if item.may_cancel? %>
           </td>
           <td>
             <%= link_to "Edit", edit_admin_item_path(item), class: "btn btn-warning col-12 shadow-sm rounded" %>
-           <hr>
-            <%= link_to 'Delete', admin_item_path(item), method: :delete, data: { confirm:'Are you sure you want to delete?' }, class: "btn btn-danger col-12 shadow-sm rounded" %>
+            <hr>
+            <%= link_to 'Delete', admin_item_path(item), method: :delete, data: { confirm: 'Are you sure you want to delete?' }, class: "btn btn-danger col-12 shadow-sm rounded" %>
           </td>
         </tr>
       <% end %>

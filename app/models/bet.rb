@@ -2,7 +2,8 @@ class Bet < ApplicationRecord
   validates :coins, numericality: { greater_than: 0 }
   belongs_to :user
   belongs_to :item
-  after_create :generate_serial_number
+  after_create :generate_serial_number, :deduct_user_coin
+
 
   include AASM
   aasm column: :state do
@@ -23,6 +24,10 @@ class Bet < ApplicationRecord
 
   def refund
     user.update(coins: user.coins + 1)
+  end
+
+  def deduct_user_coin
+    user.update(coins: user.coins - coins)
   end
 
   def generate_serial_number
