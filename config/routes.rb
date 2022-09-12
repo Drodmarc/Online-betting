@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       resources :orders, path: 'orders-list', only: :index do
         put :pay, :cancel
       end
+      resources :invites, path: 'invites-list', only: :index
     end
   end
 end

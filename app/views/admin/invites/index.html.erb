@@ -1,0 +1,51 @@
+<%= render "layouts/adnav" %>
+<div class="main mt-4">
+  <div class="row">
+    <div class="col">
+      <h1><b>Invites List</b></h1>
+    </div>
+    <div class="col">
+      <%= form_tag({ url: admin_invites_path }, { method: :get }) do %>
+        <div class="d-flex justify-content-end" style="font-size: 15px">
+          <div class="input-group">
+            <%= text_field_tag :parent_email, params[:parent_email], placeholder: "Parent Email", class: "form-control shadow-sm" %>
+            <%= submit_tag :Search, class: "btn btn-primary px-4" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <table class="table table-bordered table-dark table-hover text-center shadow rounded" style="font-size: 15px">
+    <thead>
+    <tr style="vertical-align: middle">
+      <th scope="col">Parent Email</th>
+      <th scope="col">Email</th>
+      <th scope="col">Total Deposit</th>
+      <th scope="col">Member Total Deposits</th>
+      <th scope="col">Coins</th>
+      <th scope="col">Created at</th>
+      <th scope="col">Coins used count</th>
+      <th scope="col">Children Members</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% if @users.blank? %>
+      <tr class="table-light" style="vertical-align: middle">
+        <td colspan="8"><p> No record found.</p></td>
+      </tr>
+    <% end %>
+    <% @users.each do |user| %>
+      <tr class="table-light" style="vertical-align: middle">
+        <td><%= user.parent.email %></td>
+        <td><%= user.email %></td>
+        <td><%= user.total_deposit %></td>
+        <td><%= user.children.map(&:total_deposit).sum %></td>
+        <td><%= user.coins %></td>
+        <td><%= user.created_at %></td>
+        <td><%= user.bets.where.not(state: :cancelled).count %></td>
+        <td><%= user.children_members %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
