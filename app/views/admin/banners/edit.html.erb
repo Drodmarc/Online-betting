@@ -1,0 +1,19 @@
+<%= render "layouts/adnav" %>
+<div class="main mt-4">
+  <div class="container">
+    <h1><b>Edit Banner</b></h1>
+    <div class="card w-100 mt-3 shadow border-light">
+      <div class="card-body bg-light">
+        <%= form_for @banner, url: admin_banner_path, method: :patch do |f| %>
+          <div class="row mt-3">
+            <%= render "form", f: f %>
+            <div class="pt-1 text-center mb-2">
+              <%= link_to 'Back', admin_banners_path, class: "btn btn-warning px-5 mx-3 shadow-sm" %>
+              <%= f.submit "Update", data: { confirm: 'Are you sure you want to update?' }, class: "btn btn-success px-5 mx-3 shadow-sm" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

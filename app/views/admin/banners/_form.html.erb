@@ -1,0 +1,21 @@
+<div class="col">
+  <div class="form-outline mb-4">
+    <div class="d-flex justify-content-center mb-4">
+      <%= image_tag @banner.preview.url, class: "img-thumbnail shadow-sm border-light", style: "width: 50%" if @banner.preview? %>
+    </div>
+    <%= f.file_field :preview, class: "form-control mt-3 mb-3 shadow-sm" %>
+    <%= content_tag :p, @banner.errors.full_messages_for(:preview).join(', '), class: 'text-danger' if @banner.errors.has_key?(:preview) %>
+    <%= f.select(:status, Banner.statuses.keys.map { |key| [key.humanize, key] }, { :prompt => 'Status' }, class: "form-control form-select mt-3 mb-3 shadow-sm") %>
+    <%= content_tag :p, @banner.errors.full_messages_for(:status).join(', '), class: 'text-danger' if @banner.errors.has_key?(:status) %>
+    <div class="input-group mt-3 mb-3">
+      <span class="input-group-text shadow-sm">Online at</span>
+      <%= f.datetime_field :online_at, class: "form-control shadow-sm" %>
+    </div>
+    <%= content_tag :p, @banner.errors.full_messages_for(:online_at).join(', '), class: 'text-danger' if @banner.errors.has_key?(:online_at) %>
+    <div class="input-group mt-3 mb-3">
+      <span class="input-group-text shadow-sm">Offline at</span>
+      <%= f.datetime_field :offline_at, class: "form-control shadow-sm" %>
+    </div>
+    <%= content_tag :p, @banner.errors.full_messages_for(:offline_at).join(', '), class: 'text-danger' if @banner.errors.has_key?(:offline_at) %>
+  </div>
+</div>
