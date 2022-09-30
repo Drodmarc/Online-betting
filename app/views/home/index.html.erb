@@ -1,7 +1,7 @@
 <%= render "users/shared/nav" %>
 <%= render "users/shared/carousel" %>
 <div class="container" style="margin-bottom: 100px; margin-top: 15px">
-  <h4>Winners Feedback!</h4>
+  <h4><%= t('winners_feedback')%></h4>
   <div class="row row-cols-lg-5 d-flex justify-content-center">
 
     <% @winners.each do |winner| %>
@@ -26,7 +26,7 @@
       <% end %>
     <% end %>
   </div>
-  <h4>Coming Soon!</h4>
+  <h4><%= t('coming_soon')%></h4>
   <div class="row row-cols-lg-5 d-flex justify-content-center">
     <% @items.each do |item| %>
       <div class=" col-md-4 col-4 d-flex align-self-stretch">
